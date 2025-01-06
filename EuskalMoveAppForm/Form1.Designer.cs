@@ -38,8 +38,8 @@
             this.guna2HtmlLabel1 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2HtmlLabel2 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2HtmlLabel3 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.guna2HtmlLabel5 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2GradientButton1 = new Guna.UI2.WinForms.Guna2GradientButton();
+            this.guna2HtmlLabel5 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2HtmlLabel4 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox2)).BeginInit();
@@ -92,7 +92,7 @@
             // 
             this.guna2TextBox1.BackColor = System.Drawing.Color.White;
             this.guna2TextBox1.BorderColor = System.Drawing.Color.Gray;
-            this.guna2TextBox1.BorderRadius = 20;
+            this.guna2TextBox1.BorderRadius = 12;
             this.guna2TextBox1.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.guna2TextBox1.DefaultText = "";
             this.guna2TextBox1.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
@@ -110,14 +110,14 @@
             this.guna2TextBox1.PlaceholderForeColor = System.Drawing.Color.Gray;
             this.guna2TextBox1.PlaceholderText = "";
             this.guna2TextBox1.SelectedText = "";
-            this.guna2TextBox1.Size = new System.Drawing.Size(193, 36);
+            this.guna2TextBox1.Size = new System.Drawing.Size(193, 25);
             this.guna2TextBox1.TabIndex = 8;
             // 
             // guna2TextBox2
             // 
             this.guna2TextBox2.BackColor = System.Drawing.Color.White;
             this.guna2TextBox2.BorderColor = System.Drawing.Color.Gray;
-            this.guna2TextBox2.BorderRadius = 20;
+            this.guna2TextBox2.BorderRadius = 12;
             this.guna2TextBox2.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.guna2TextBox2.DefaultText = "";
             this.guna2TextBox2.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
@@ -129,13 +129,13 @@
             this.guna2TextBox2.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.guna2TextBox2.ForeColor = System.Drawing.Color.White;
             this.guna2TextBox2.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.guna2TextBox2.Location = new System.Drawing.Point(104, 272);
+            this.guna2TextBox2.Location = new System.Drawing.Point(104, 261);
             this.guna2TextBox2.Name = "guna2TextBox2";
             this.guna2TextBox2.PasswordChar = '\0';
             this.guna2TextBox2.PlaceholderForeColor = System.Drawing.Color.Gray;
             this.guna2TextBox2.PlaceholderText = "";
             this.guna2TextBox2.SelectedText = "";
-            this.guna2TextBox2.Size = new System.Drawing.Size(193, 36);
+            this.guna2TextBox2.Size = new System.Drawing.Size(193, 25);
             this.guna2TextBox2.TabIndex = 9;
             // 
             // guna2HtmlLabel1
@@ -152,7 +152,7 @@
             // 
             this.guna2HtmlLabel2.BackColor = System.Drawing.Color.White;
             this.guna2HtmlLabel2.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2HtmlLabel2.Location = new System.Drawing.Point(104, 249);
+            this.guna2HtmlLabel2.Location = new System.Drawing.Point(104, 238);
             this.guna2HtmlLabel2.Name = "guna2HtmlLabel2";
             this.guna2HtmlLabel2.Size = new System.Drawing.Size(64, 17);
             this.guna2HtmlLabel2.TabIndex = 11;
@@ -168,22 +168,10 @@
             this.guna2HtmlLabel3.TabIndex = 12;
             this.guna2HtmlLabel3.Text = "Bienvenido!";
             // 
-            // guna2HtmlLabel5
-            // 
-            this.guna2HtmlLabel5.AutoSize = false;
-            this.guna2HtmlLabel5.BackColor = System.Drawing.Color.White;
-            this.guna2HtmlLabel5.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2HtmlLabel5.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.guna2HtmlLabel5.Location = new System.Drawing.Point(127, 401);
-            this.guna2HtmlLabel5.Name = "guna2HtmlLabel5";
-            this.guna2HtmlLabel5.Size = new System.Drawing.Size(135, 17);
-            this.guna2HtmlLabel5.TabIndex = 14;
-            this.guna2HtmlLabel5.Text = "Olvidaste la contraseña?";
-            // 
             // guna2GradientButton1
             // 
             this.guna2GradientButton1.BackColor = System.Drawing.Color.White;
-            this.guna2GradientButton1.BorderRadius = 20;
+            this.guna2GradientButton1.BorderRadius = 12;
             this.guna2GradientButton1.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.guna2GradientButton1.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.guna2GradientButton1.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
@@ -193,11 +181,23 @@
             this.guna2GradientButton1.FillColor2 = System.Drawing.Color.DimGray;
             this.guna2GradientButton1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guna2GradientButton1.ForeColor = System.Drawing.Color.White;
-            this.guna2GradientButton1.Location = new System.Drawing.Point(117, 358);
+            this.guna2GradientButton1.Location = new System.Drawing.Point(131, 345);
             this.guna2GradientButton1.Name = "guna2GradientButton1";
-            this.guna2GradientButton1.Size = new System.Drawing.Size(154, 37);
+            this.guna2GradientButton1.Size = new System.Drawing.Size(122, 28);
             this.guna2GradientButton1.TabIndex = 15;
             this.guna2GradientButton1.Text = "INICIAR SESIÓN";
+            // 
+            // guna2HtmlLabel5
+            // 
+            this.guna2HtmlLabel5.AutoSize = false;
+            this.guna2HtmlLabel5.BackColor = System.Drawing.Color.White;
+            this.guna2HtmlLabel5.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guna2HtmlLabel5.ForeColor = System.Drawing.SystemColors.ControlDark;
+            this.guna2HtmlLabel5.Location = new System.Drawing.Point(124, 379);
+            this.guna2HtmlLabel5.Name = "guna2HtmlLabel5";
+            this.guna2HtmlLabel5.Size = new System.Drawing.Size(155, 17);
+            this.guna2HtmlLabel5.TabIndex = 14;
+            this.guna2HtmlLabel5.Text = "Olvidaste la contraseña?";
             // 
             // guna2HtmlLabel4
             // 
@@ -205,7 +205,7 @@
             this.guna2HtmlLabel4.BackColor = System.Drawing.Color.White;
             this.guna2HtmlLabel4.Font = new System.Drawing.Font("Times New Roman", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guna2HtmlLabel4.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.guna2HtmlLabel4.Location = new System.Drawing.Point(104, 314);
+            this.guna2HtmlLabel4.Location = new System.Drawing.Point(104, 301);
             this.guna2HtmlLabel4.Name = "guna2HtmlLabel4";
             this.guna2HtmlLabel4.Size = new System.Drawing.Size(193, 38);
             this.guna2HtmlLabel4.TabIndex = 13;
@@ -250,8 +250,8 @@
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel1;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel2;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel3;
-        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel5;
         private Guna.UI2.WinForms.Guna2GradientButton guna2GradientButton1;
+        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel5;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel4;
     }
 }
