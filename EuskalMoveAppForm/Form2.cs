@@ -1,0 +1,106 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace EuskalMoveAppForm
+{
+    public partial class Form2 : Form
+    {
+        private Guna.UI2.WinForms.Guna2Button selectedButton;
+
+        public Form2()
+        {
+            InitializeComponent();
+            // Establecer el estado inicial de guna2Button1
+            SetButtonSelected(guna2Button1);
+
+            // Asignar eventos de hover a los botones
+            guna2Button1.MouseEnter += new EventHandler(Button_MouseEnter);
+            guna2Button1.MouseLeave += new EventHandler(Button_MouseLeave);
+            guna2Button2.MouseEnter += new EventHandler(Button_MouseEnter);
+            guna2Button2.MouseLeave += new EventHandler(Button_MouseLeave);
+        }
+
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            base.OnPaint(e);
+
+            // Crear una ruta con bordes redondeados
+            int borderRadius = 30;
+            GraphicsPath path = new GraphicsPath();
+            path.AddArc(0, 0, borderRadius, borderRadius, 180, 90);
+            path.AddArc(this.Width - borderRadius, 0, borderRadius, borderRadius, 270, 90);
+            path.AddArc(this.Width - borderRadius, this.Height - borderRadius, borderRadius, borderRadius, 0, 90);
+            path.AddArc(0, this.Height - borderRadius, borderRadius, borderRadius, 90, 90);
+            path.CloseAllFigures();
+
+            // Establecer la región del formulario a la ruta con bordes redondeados
+            this.Region = new Region(path);
+        }
+
+        private void guna2Button1_Click(object sender, EventArgs e)
+        {
+            SetButtonSelected(guna2Button1);
+        }
+
+        private void guna2Button2_Click(object sender, EventArgs e)
+        {
+            SetButtonSelected(guna2Button2);
+        }
+
+        private void SetButtonSelected(Guna.UI2.WinForms.Guna2Button button)
+        {
+            // Restablecer el estado de todos los botones
+            ResetButtonState(guna2Button1);
+            ResetButtonState(guna2Button2);
+
+            // Establecer el estado del botón seleccionado
+            pnlNav.Height = button.Height;
+            pnlNav.Top = button.Top;
+            pnlNav.Left = button.Left;
+            button.FillColor = Color.Gray;
+            pnlNav.Visible = true;
+
+            // Ocultar el panel de hover
+            pnlNav2.Visible = false;
+
+            // Guardar el botón seleccionado
+            selectedButton = button;
+        }
+
+        private void ResetButtonState(Guna.UI2.WinForms.Guna2Button button)
+        {
+            button.FillColor = Color.Black;
+        }
+
+        private void Button_MouseEnter(object sender, EventArgs e)
+        {
+            Guna.UI2.WinForms.Guna2Button button = sender as Guna.UI2.WinForms.Guna2Button;
+
+            // Mostrar pnlNav2 solo si el botón no está seleccionado
+            if (button != selectedButton)
+            {
+                pnlNav2.Height = button.Height;
+                pnlNav2.Top = button.Top;
+                pnlNav2.Left = button.Left;
+                pnlNav2.Visible = true;
+            }
+        }
+
+        private void Button_MouseLeave(object sender, EventArgs e)
+        {
+            // Ocultar pnlNav2 solo si el botón no está seleccionado
+            if (sender as Guna.UI2.WinForms.Guna2Button != selectedButton)
+            {
+                pnlNav2.Visible = false;
+            }
+        }
+    }
+}
