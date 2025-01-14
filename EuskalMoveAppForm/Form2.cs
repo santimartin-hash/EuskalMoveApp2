@@ -108,7 +108,11 @@ namespace EuskalMoveAppForm
             {
                 pnlNav2.Visible = false;
                 button.ForeColor = System.Drawing.Color.FromArgb(218, 227, 229); // Cambia esto al color original del texto
+            } else
+            {
+                button.ForeColor = System.Drawing.Color.FromArgb(223, 154, 87);
             }
+
             
         }
 
