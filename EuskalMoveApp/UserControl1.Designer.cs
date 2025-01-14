@@ -49,6 +49,8 @@
             this.guna2Button1.TabIndex = 0;
             this.guna2Button1.Text = "-";
             this.guna2Button1.Click += new System.EventHandler(this.guna2Button1_Click);
+            this.guna2Button1.MouseEnter += new System.EventHandler(this.guna2Button_MouseEnter);
+            this.guna2Button1.MouseLeave += new System.EventHandler(this.guna2Button_MouseLeave);
             // 
             // guna2Button2
             // 
@@ -65,6 +67,8 @@
             this.guna2Button2.TabIndex = 1;
             this.guna2Button2.Text = "🔲";
             this.guna2Button2.Click += new System.EventHandler(this.guna2Button2_Click);
+            this.guna2Button2.MouseEnter += new System.EventHandler(this.guna2Button_MouseEnter);
+            this.guna2Button2.MouseLeave += new System.EventHandler(this.guna2Button_MouseLeave);
             // 
             // guna2Button3
             // 
@@ -82,6 +86,8 @@
             this.guna2Button3.TabIndex = 2;
             this.guna2Button3.Text = "⨯";
             this.guna2Button3.Click += new System.EventHandler(this.guna2Button3_Click);
+            this.guna2Button3.MouseEnter += new System.EventHandler(this.guna2Button_MouseEnter);
+            this.guna2Button3.MouseLeave += new System.EventHandler(this.guna2Button_MouseLeave);
             // 
             // UserControl1
             // 

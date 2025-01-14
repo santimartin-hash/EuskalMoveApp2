@@ -56,6 +56,23 @@ namespace EuskalMoveAppForm
             form2.Show();
 
         }
+
+        private void guna2GradientButton1_MouseEnter(object sender, EventArgs e)
+        {
+            
+            guna2GradientButton1.HoverState.FillColor = System.Drawing.Color.FromArgb(223, 154, 87);
+            guna2GradientButton1.HoverState.FillColor2 = System.Drawing.Color.FromArgb(223, 154, 87);
+            guna2GradientButton1.ForeColor = System.Drawing.Color.FromArgb(218, 227, 229);
+
+        }
+
+        private void guna2GradientButton1_MouseLeave(object sender, EventArgs e)
+        {
+            guna2GradientButton1.HoverState.FillColor = System.Drawing.Color.FromArgb(218, 227, 229);
+            guna2GradientButton1.ForeColor = System.Drawing.Color.FromArgb(223, 154, 87);
+            guna2GradientButton1.HoverState.FillColor2 = System.Drawing.Color.FromArgb(218, 227, 229);
+
+        }
     }
 }
 

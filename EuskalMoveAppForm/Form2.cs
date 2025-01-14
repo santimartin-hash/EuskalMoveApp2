@@ -26,6 +26,8 @@ namespace EuskalMoveAppForm
             guna2Button1.MouseLeave += new EventHandler(Button_MouseLeave);
             guna2Button2.MouseEnter += new EventHandler(Button_MouseEnter);
             guna2Button2.MouseLeave += new EventHandler(Button_MouseLeave);
+            guna2Button3.HoverState.FillColor = System.Drawing.Color.IndianRed;
+          
         }
 
         protected override void OnPaint(PaintEventArgs e)
@@ -65,7 +67,7 @@ namespace EuskalMoveAppForm
             pnlNav.Height = button.Height;
             pnlNav.Top = button.Top;
             pnlNav.Left = button.Left;
-            button.FillColor = Color.Gray;
+            button.ForeColor = System.Drawing.Color.FromArgb(223, 154, 87);
             pnlNav.Visible = true;
 
             // Ocultar el panel de hover
@@ -77,7 +79,8 @@ namespace EuskalMoveAppForm
 
         private void ResetButtonState(Guna.UI2.WinForms.Guna2Button button)
         {
-            button.FillColor = Color.Black;
+            button.FillColor = System.Drawing.Color.FromArgb(18, 16, 14);
+            button.ForeColor = System.Drawing.Color.FromArgb(218, 227, 229); // Cambia esto al color original del texto
         }
 
         private void Button_MouseEnter(object sender, EventArgs e)
@@ -91,16 +94,36 @@ namespace EuskalMoveAppForm
                 pnlNav2.Top = button.Top;
                 pnlNav2.Left = button.Left;
                 pnlNav2.Visible = true;
+         
             }
+            button.ForeColor = System.Drawing.Color.FromArgb(132, 79, 26);
         }
 
         private void Button_MouseLeave(object sender, EventArgs e)
         {
+            Guna.UI2.WinForms.Guna2Button button = sender as Guna.UI2.WinForms.Guna2Button;
+
             // Ocultar pnlNav2 solo si el botón no está seleccionado
-            if (sender as Guna.UI2.WinForms.Guna2Button != selectedButton)
+            if (button != selectedButton)
             {
                 pnlNav2.Visible = false;
+                button.ForeColor = System.Drawing.Color.FromArgb(218, 227, 229); // Cambia esto al color original del texto
             }
+            
+        }
+
+        private void guna2Button3_MouseEnter(object sender, EventArgs e)
+        {
+            Guna.UI2.WinForms.Guna2Button button = sender as Guna.UI2.WinForms.Guna2Button;
+            button.ForeColor = System.Drawing.Color.FromArgb(218, 227, 229);
+
+        }
+
+        private void guna2Button3_MouseLeave(object sender, EventArgs e)
+        {
+            Guna.UI2.WinForms.Guna2Button button = sender as Guna.UI2.WinForms.Guna2Button;
+            button.ForeColor = System.Drawing.Color.FromArgb(218, 227, 229); // Cambia esto al color original del texto
+
         }
     }
 }

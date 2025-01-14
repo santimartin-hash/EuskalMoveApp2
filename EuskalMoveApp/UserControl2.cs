@@ -75,5 +75,22 @@ namespace EuskalMoveApp
                 SendMessage(this.FindForm().Handle, WM_NCLBUTTONDOWN, HTCAPTION, 0);
             }
         }
+        private void guna2Button_MouseEnter(object sender, EventArgs e)
+        {
+            Guna.UI2.WinForms.Guna2Button button = sender as Guna.UI2.WinForms.Guna2Button;
+            if (button != null)
+            {
+                button.ForeColor = System.Drawing.Color.FromArgb(223, 154, 87);
+            }
+        }
+
+        private void guna2Button_MouseLeave(object sender, EventArgs e)
+        {
+            Guna.UI2.WinForms.Guna2Button button = sender as Guna.UI2.WinForms.Guna2Button;
+            if (button != null)
+            {
+                button.ForeColor = System.Drawing.Color.FromArgb(18, 16, 14); // Cambia esto al color original del texto
+            }
+        }
     }
 }
