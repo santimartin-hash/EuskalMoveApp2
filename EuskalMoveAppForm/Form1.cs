@@ -60,16 +60,17 @@ namespace EuskalMoveAppForm
         private void guna2GradientButton1_MouseEnter(object sender, EventArgs e)
         {
             
-            guna2GradientButton1.HoverState.FillColor = System.Drawing.Color.FromArgb(223, 154, 87);
-            guna2GradientButton1.HoverState.FillColor2 = System.Drawing.Color.FromArgb(223, 154, 87);
-            guna2GradientButton1.ForeColor = System.Drawing.Color.FromArgb(218, 227, 229);
+            guna2GradientButton1.HoverState.FillColor = System.Drawing.Color.FromArgb(132, 79, 26);
+            guna2GradientButton1.HoverState.FillColor2 = System.Drawing.Color.FromArgb(132, 79, 26);
+           
 
         }
 
         private void guna2GradientButton1_MouseLeave(object sender, EventArgs e)
         {
+           
             guna2GradientButton1.HoverState.FillColor = System.Drawing.Color.FromArgb(218, 227, 229);
-            guna2GradientButton1.ForeColor = System.Drawing.Color.FromArgb(223, 154, 87);
+            guna2GradientButton1.HoverState.ForeColor = System.Drawing.Color.FromArgb(223, 154, 87);
             guna2GradientButton1.HoverState.FillColor2 = System.Drawing.Color.FromArgb(218, 227, 229);
 
         }
