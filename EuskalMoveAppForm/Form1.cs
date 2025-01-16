@@ -20,7 +20,7 @@ namespace EuskalMoveAppForm
         private string userName;
         private string userStatus;
         private bool userIsAdmin;
-
+      
         public Form1()
         {
             InitializeComponent();
@@ -59,6 +59,16 @@ namespace EuskalMoveAppForm
 
         private async void guna2GradientButton1_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(guna2TextBox1.Text) || string.IsNullOrWhiteSpace(guna2TextBox2.Text))
+            {
+                ToastForm toast = new ToastForm(this, "Warning", "Por favor, complete todos los campos.");
+                toast.Show();
+                return;
+            }
+
+
+
+
             string apiUrl = "http://10.10.13.169:8080/usuarios/login";
             var loginData = new
             {
@@ -87,23 +97,28 @@ namespace EuskalMoveAppForm
                     if (userStatus == "OK")
                     {
                         // Mostrar mensaje de éxito y abrir Form2
-                        MessageBox.Show("Inicio de sesión exitoso.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
                         Form2 form2 = new Form2(userEmail, userName, userStatus, userIsAdmin);
                         form2.Show();
                         this.Hide();
+
+                        ToastForm toastForm = new ToastForm(form2, "Success", "Inicio de sesión exitoso.");
+                        toastForm.Show();
                     }
                     else
                     {
                         // Mostrar mensaje de error si el status no es "OK"
-                        MessageBox.Show("Error en el inicio de sesión. Estado: " + userStatus, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        ToastForm toast = new ToastForm(this, "Error", "Error en el inicio de sesión.");
+                        toast.Show();
                     }
                 }
                 else
                 {
-                    // Mostrar mensaje de error si la respuesta no es exitosa
-                    MessageBox.Show("Error en el inicio de sesión.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                   ToastForm toast = new ToastForm(this, "Error", "Error en el inicio de sesión.");
+                    toast.Show();
                 }
-            }
+              }
+         
         }
 
 

@@ -63,6 +63,16 @@ namespace EuskalMoveAppForm.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap ErrorIcon {
+            get {
+                object obj = ResourceManager.GetObject("ErrorIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap image__2_ {
             get {
                 object obj = ResourceManager.GetObject("image__2_", resourceCulture);
@@ -76,6 +86,36 @@ namespace EuskalMoveAppForm.Properties {
         internal static System.Drawing.Bitmap image__3_ {
             get {
                 object obj = ResourceManager.GetObject("image__3_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap InfoIcon {
+            get {
+                object obj = ResourceManager.GetObject("InfoIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap SuccessIcon {
+            get {
+                object obj = ResourceManager.GetObject("SuccessIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap WarningIcon {
+            get {
+                object obj = ResourceManager.GetObject("WarningIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
