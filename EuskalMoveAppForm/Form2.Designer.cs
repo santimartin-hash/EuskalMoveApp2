@@ -32,12 +32,12 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.pnlNav2 = new System.Windows.Forms.Panel();
             this.pnlNav = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.userControl21 = new EuskalMoveApp.UserControl2();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.guna2Button3 = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Button2 = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Button1 = new Guna.UI2.WinForms.Guna2Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.userControl21 = new EuskalMoveApp.UserControl2();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
@@ -75,6 +75,36 @@
             this.pnlNav.TabIndex = 2;
             this.pnlNav.Visible = false;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Nirmala UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(218)))), ((int)(((byte)(227)))), ((int)(((byte)(229)))));
+            this.label1.Location = new System.Drawing.Point(62, 86);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(76, 17);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "Admin User";
+            // 
+            // userControl21
+            // 
+            this.userControl21.BackColor = System.Drawing.Color.Transparent;
+            this.userControl21.Location = new System.Drawing.Point(1, -1);
+            this.userControl21.Name = "userControl21";
+            this.userControl21.Size = new System.Drawing.Size(901, 36);
+            this.userControl21.TabIndex = 0;
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(18)))), ((int)(((byte)(16)))), ((int)(((byte)(14)))));
+            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
+            this.pictureBox2.Location = new System.Drawing.Point(65, 13);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(73, 70);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox2.TabIndex = 17;
+            this.pictureBox2.TabStop = false;
+            // 
             // guna2Button3
             // 
             this.guna2Button3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(18)))), ((int)(((byte)(16)))), ((int)(((byte)(14)))));
@@ -87,13 +117,14 @@
             this.guna2Button3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(218)))), ((int)(((byte)(227)))), ((int)(((byte)(229)))));
             this.guna2Button3.Image = ((System.Drawing.Image)(resources.GetObject("guna2Button3.Image")));
             this.guna2Button3.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.guna2Button3.Location = new System.Drawing.Point(3, 480);
+            this.guna2Button3.Location = new System.Drawing.Point(0, 480);
             this.guna2Button3.Name = "guna2Button3";
-            this.guna2Button3.PressedColor = System.Drawing.Color.IndianRed;
-            this.guna2Button3.Size = new System.Drawing.Size(193, 47);
+            this.guna2Button3.PressedColor = System.Drawing.Color.FromArgb(((int)(((byte)(18)))), ((int)(((byte)(16)))), ((int)(((byte)(14)))));
+            this.guna2Button3.Size = new System.Drawing.Size(196, 47);
             this.guna2Button3.TabIndex = 5;
             this.guna2Button3.Text = "Salir";
             this.guna2Button3.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.guna2Button3.Click += new System.EventHandler(this.guna2Button3_Click);
             this.guna2Button3.MouseEnter += new System.EventHandler(this.guna2Button3_MouseEnter);
             this.guna2Button3.MouseLeave += new System.EventHandler(this.guna2Button3_MouseLeave);
             // 
@@ -139,36 +170,6 @@
             this.guna2Button1.Text = "Incidencias";
             this.guna2Button1.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.guna2Button1.Click += new System.EventHandler(this.guna2Button1_Click);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Nirmala UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(218)))), ((int)(((byte)(227)))), ((int)(((byte)(229)))));
-            this.label1.Location = new System.Drawing.Point(62, 86);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(76, 17);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "Admin User";
-            // 
-            // pictureBox2
-            // 
-            this.pictureBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(18)))), ((int)(((byte)(16)))), ((int)(((byte)(14)))));
-            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
-            this.pictureBox2.Location = new System.Drawing.Point(65, 13);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(73, 70);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox2.TabIndex = 17;
-            this.pictureBox2.TabStop = false;
-            // 
-            // userControl21
-            // 
-            this.userControl21.BackColor = System.Drawing.Color.Transparent;
-            this.userControl21.Location = new System.Drawing.Point(1, -1);
-            this.userControl21.Name = "userControl21";
-            this.userControl21.Size = new System.Drawing.Size(901, 36);
-            this.userControl21.TabIndex = 0;
             // 
             // Form2
             // 

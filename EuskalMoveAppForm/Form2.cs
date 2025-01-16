@@ -15,7 +15,7 @@ namespace EuskalMoveAppForm
     {
         private Guna.UI2.WinForms.Guna2Button selectedButton;
 
-        public Form2()
+        public Form2(String email, String nombre, String status, bool admin)
         {
             InitializeComponent();
             // Establecer el estado inicial de guna2Button1
@@ -26,7 +26,7 @@ namespace EuskalMoveAppForm
             guna2Button1.MouseLeave += new EventHandler(Button_MouseLeave);
             guna2Button2.MouseEnter += new EventHandler(Button_MouseEnter);
             guna2Button2.MouseLeave += new EventHandler(Button_MouseLeave);
-            guna2Button3.HoverState.FillColor = System.Drawing.Color.IndianRed;
+            guna2Button3.HoverState.FillColor = System.Drawing.Color.FromArgb(18, 16, 14);
           
         }
 
@@ -118,16 +118,33 @@ namespace EuskalMoveAppForm
 
         private void guna2Button3_MouseEnter(object sender, EventArgs e)
         {
-            Guna.UI2.WinForms.Guna2Button button = sender as Guna.UI2.WinForms.Guna2Button;
-            button.ForeColor = System.Drawing.Color.FromArgb(218, 227, 229);
-
+            // Cambiar el ícono del botón al hacer hover
+            guna2Button3.Image = Properties.Resources.image__3_; // Reemplaza 'IconHover' con el nombre del recurso del ícono para hover
+            guna2Button3.ForeColor = System.Drawing.Color.IndianRed;
+            guna2Button3.Location = new System.Drawing.Point(6, 480);
         }
 
         private void guna2Button3_MouseLeave(object sender, EventArgs e)
         {
-            Guna.UI2.WinForms.Guna2Button button = sender as Guna.UI2.WinForms.Guna2Button;
-            button.ForeColor = System.Drawing.Color.FromArgb(218, 227, 229); // Cambia esto al color original del texto
+            // Restaurar el ícono original del botón
+            guna2Button3.Image = Properties.Resources.image__2_; // Reemplaza 'IconDefault' con el nombre del recurso del ícono original
+            guna2Button3.ForeColor = System.Drawing.Color.FromArgb(218, 227, 229);
+            guna2Button3.Location = new System.Drawing.Point(0, 480);
+        }
 
+        private void guna2Button3_Click(object sender, EventArgs e)
+        {
+            Logout();
+        }
+
+        private void Logout()
+        {
+            // Cerrar el formulario actual (Form2)
+            this.Close();
+
+            // Mostrar el formulario de inicio de sesión (Form1)
+            Form1 form1 = new Form1();
+            form1.Show();
         }
     }
 }

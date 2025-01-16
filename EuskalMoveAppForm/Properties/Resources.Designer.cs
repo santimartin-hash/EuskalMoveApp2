@@ -63,9 +63,19 @@ namespace EuskalMoveAppForm.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap guna {
+        internal static System.Drawing.Bitmap image__2_ {
             get {
-                object obj = ResourceManager.GetObject("guna", resourceCulture);
+                object obj = ResourceManager.GetObject("image__2_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap image__3_ {
+            get {
+                object obj = ResourceManager.GetObject("image__3_", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
