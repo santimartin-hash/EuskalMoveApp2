@@ -20,7 +20,8 @@ namespace EuskalMoveAppForm
         private string userName;
         private string userStatus;
         private bool userIsAdmin;
-      
+        private ToastForm currentToast; // Variable para almacenar la referencia al ToastForm
+
         public Form1()
         {
             InitializeComponent();
@@ -61,13 +62,9 @@ namespace EuskalMoveAppForm
         {
             if (string.IsNullOrWhiteSpace(guna2TextBox1.Text) || string.IsNullOrWhiteSpace(guna2TextBox2.Text))
             {
-                ToastForm toast = new ToastForm(this, "Warning", "Por favor, complete todos los campos.");
-                toast.Show();
+                ShowToast("Warning", "Por favor, complete todos los campos.");
                 return;
             }
-
-
-
 
             string apiUrl = "http://10.10.13.169:8080/usuarios/login";
             var loginData = new
@@ -81,7 +78,16 @@ namespace EuskalMoveAppForm
                 var json = JsonConvert.SerializeObject(loginData);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-                HttpResponseMessage response = await client.PostAsync(apiUrl, content);
+                HttpResponseMessage response;
+                try
+                {
+                    response = await client.PostAsync(apiUrl, content);
+                }
+                catch (HttpRequestException ex)
+                {
+                    ShowToast("Error", "Error de conexión: " + ex.Message);
+                    return;
+                }
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -97,9 +103,12 @@ namespace EuskalMoveAppForm
                     if (userStatus == "OK")
                     {
                         // Mostrar mensaje de éxito y abrir Form2
-
                         Form2 form2 = new Form2(userEmail, userName, userStatus, userIsAdmin);
                         form2.Show();
+
+                        // Cerrar el ToastForm actual si existe
+                        currentToast?.Close();
+
                         this.Hide();
 
                         ToastForm toastForm = new ToastForm(form2, "Success", "Inicio de sesión exitoso.");
@@ -108,20 +117,25 @@ namespace EuskalMoveAppForm
                     else
                     {
                         // Mostrar mensaje de error si el status no es "OK"
-                        ToastForm toast = new ToastForm(this, "Error", "Error en el inicio de sesión.");
-                        toast.Show();
+                        ShowToast("Error", "Error en el inicio de sesión.");
                     }
                 }
                 else
                 {
-                   ToastForm toast = new ToastForm(this, "Error", "Error en el inicio de sesión.");
-                    toast.Show();
+                    ShowToast("Error", "Error en el inicio de sesión.");
                 }
-              }
-         
+            }
         }
 
+        private void ShowToast(string type, string message)
+        {
+            // Cerrar el ToastForm actual si existe
+            currentToast?.Close();
 
+            // Crear y mostrar un nuevo ToastForm
+            currentToast = new ToastForm(this, type, message);
+            currentToast.Show();
+        }
 
         private void guna2GradientButton1_MouseEnter(object sender, EventArgs e)
         {

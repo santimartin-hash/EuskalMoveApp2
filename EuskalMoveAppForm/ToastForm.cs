@@ -19,6 +19,7 @@ namespace EuskalMoveAppForm
             this.form2 = form2;
             this.form2.LocationChanged += Form2_LocationOrSizeChanged;
             this.form2.SizeChanged += Form2_LocationOrSizeChanged;
+            this.form2.FormClosed += Form2_FormClosed; // Suscribirse al evento FormClosed
 
             showTimer = new Timer();
             showTimer.Interval = 10;
@@ -65,10 +66,9 @@ namespace EuskalMoveAppForm
                     pictureBox1.Image = Properties.Resources.WarningIcon; // Asegúrate de tener esta imagen en Resources
                     break;
                 case "info":
-                    
                     leftLinePanel.BackColor = Color.FromArgb(27, 151, 243);
                     pictureBox1.Image = Properties.Resources.InfoIcon; // Asegúrate de tener esta imagen en Resources
-                    break; 
+                    break;
                 case "success":
                     leftLinePanel.BackColor = Color.FromArgb(67, 171, 75);
                     pictureBox1.Image = Properties.Resources.SuccessIcon; // Asegúrate de tener esta imagen en Resources
@@ -83,6 +83,11 @@ namespace EuskalMoveAppForm
             this.BringToFront();
         }
 
+        private void Form2_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            this.Close(); // Cerrar el ToastForm cuando Form2 se cierra
+        }
+
         private void form_Load(object sender, EventArgs e)
         {
             Position();
@@ -95,11 +100,8 @@ namespace EuskalMoveAppForm
             int form2Right = form2.Location.X + form2.Width;
             int form2Bottom = form2.Location.Y + form2.Height;
 
-            int ScreenWidth = Screen.PrimaryScreen.WorkingArea.Width;
-            int ScreenHeight = Screen.PrimaryScreen.WorkingArea.Height;
-
-            int toastX = Math.Min(form2Right - this.Width - 10, ScreenWidth - this.Width - 10);
-            targetY = Math.Min(form2Bottom - this.Height - 10, ScreenHeight - this.Height - 10);
+            int toastX = form2Right - this.Width - 10;
+            targetY = form2Bottom - this.Height - 10;
 
             this.Location = new Point(toastX, targetY);
         }

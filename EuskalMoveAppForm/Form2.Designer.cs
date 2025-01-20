@@ -30,18 +30,22 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form2));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pnlNav2 = new System.Windows.Forms.Panel();
             this.pnlNav = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.userControl21 = new EuskalMoveApp.UserControl2();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.guna2Button3 = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Button2 = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Button1 = new Guna.UI2.WinForms.Guna2Button();
-            this.panel2 = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.userControl21 = new EuskalMoveApp.UserControl2();
+            this.panelIncidencias = new System.Windows.Forms.Panel();
+            this.dataGridViewIncidencias = new System.Windows.Forms.DataGridView();
             this.panel1.SuspendLayout();
-            this.pnlNav.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            this.pnlNav.SuspendLayout();
+            this.panelIncidencias.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewIncidencias)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -58,6 +62,17 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(196, 527);
             this.panel1.TabIndex = 1;
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(18)))), ((int)(((byte)(16)))), ((int)(((byte)(14)))));
+            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
+            this.pictureBox2.Location = new System.Drawing.Point(65, 34);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(73, 70);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox2.TabIndex = 17;
+            this.pictureBox2.TabStop = false;
             // 
             // pnlNav2
             // 
@@ -78,35 +93,14 @@
             this.pnlNav.TabIndex = 2;
             this.pnlNav.Visible = false;
             // 
-            // label1
+            // panel2
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Nirmala UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(218)))), ((int)(((byte)(227)))), ((int)(((byte)(229)))));
-            this.label1.Location = new System.Drawing.Point(62, 86);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(76, 17);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "Admin User";
-            // 
-            // userControl21
-            // 
-            this.userControl21.BackColor = System.Drawing.Color.Transparent;
-            this.userControl21.Location = new System.Drawing.Point(1, -1);
-            this.userControl21.Name = "userControl21";
-            this.userControl21.Size = new System.Drawing.Size(901, 36);
-            this.userControl21.TabIndex = 0;
-            // 
-            // pictureBox2
-            // 
-            this.pictureBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(18)))), ((int)(((byte)(16)))), ((int)(((byte)(14)))));
-            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
-            this.pictureBox2.Location = new System.Drawing.Point(65, 13);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(73, 70);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox2.TabIndex = 17;
-            this.pictureBox2.TabStop = false;
+            this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(154)))), ((int)(((byte)(87)))));
+            this.panel2.Location = new System.Drawing.Point(0, 0);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(3, 100);
+            this.panel2.TabIndex = 3;
+            this.panel2.Visible = false;
             // 
             // guna2Button3
             // 
@@ -144,7 +138,7 @@
             this.guna2Button2.Image = ((System.Drawing.Image)(resources.GetObject("guna2Button2.Image")));
             this.guna2Button2.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.guna2Button2.ImageSize = new System.Drawing.Size(25, 25);
-            this.guna2Button2.Location = new System.Drawing.Point(5, 165);
+            this.guna2Button2.Location = new System.Drawing.Point(5, 199);
             this.guna2Button2.Name = "guna2Button2";
             this.guna2Button2.Size = new System.Drawing.Size(191, 47);
             this.guna2Button2.TabIndex = 4;
@@ -166,7 +160,7 @@
             this.guna2Button1.Image = ((System.Drawing.Image)(resources.GetObject("guna2Button1.Image")));
             this.guna2Button1.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.guna2Button1.ImageSize = new System.Drawing.Size(25, 25);
-            this.guna2Button1.Location = new System.Drawing.Point(5, 112);
+            this.guna2Button1.Location = new System.Drawing.Point(5, 146);
             this.guna2Button1.Name = "guna2Button1";
             this.guna2Button1.Size = new System.Drawing.Size(191, 47);
             this.guna2Button1.TabIndex = 3;
@@ -174,14 +168,43 @@
             this.guna2Button1.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.guna2Button1.Click += new System.EventHandler(this.guna2Button1_Click);
             // 
-            // panel2
+            // label1
             // 
-            this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(154)))), ((int)(((byte)(87)))));
-            this.panel2.Location = new System.Drawing.Point(0, 0);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(3, 100);
-            this.panel2.TabIndex = 3;
-            this.panel2.Visible = false;
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Nirmala UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(218)))), ((int)(((byte)(227)))), ((int)(((byte)(229)))));
+            this.label1.Location = new System.Drawing.Point(38, 112);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(76, 17);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "Admin User";
+            // 
+            // userControl21
+            // 
+            this.userControl21.BackColor = System.Drawing.Color.Transparent;
+            this.userControl21.Location = new System.Drawing.Point(1, -1);
+            this.userControl21.Name = "userControl21";
+            this.userControl21.Size = new System.Drawing.Size(901, 36);
+            this.userControl21.TabIndex = 0;
+            // 
+            // panelIncidencias
+            // 
+            this.panelIncidencias.Controls.Add(this.dataGridViewIncidencias);
+            this.panelIncidencias.Location = new System.Drawing.Point(198, 33);
+            this.panelIncidencias.Name = "panelIncidencias";
+            this.panelIncidencias.Size = new System.Drawing.Size(704, 493);
+            this.panelIncidencias.TabIndex = 2;
+            // 
+            // dataGridViewIncidencias
+            // 
+            this.dataGridViewIncidencias.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dataGridViewIncidencias.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
+            this.dataGridViewIncidencias.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Sunken;
+            this.dataGridViewIncidencias.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.dataGridViewIncidencias.Location = new System.Drawing.Point(3, 8);
+            this.dataGridViewIncidencias.Name = "dataGridViewIncidencias";
+            this.dataGridViewIncidencias.Size = new System.Drawing.Size(688, 448);
+            this.dataGridViewIncidencias.TabIndex = 0;
             // 
             // Form2
             // 
@@ -189,15 +212,19 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(218)))), ((int)(((byte)(227)))), ((int)(((byte)(229)))));
             this.ClientSize = new System.Drawing.Size(901, 525);
+            this.Controls.Add(this.panelIncidencias);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.userControl21);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Form2";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form2";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            this.pnlNav.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            this.pnlNav.ResumeLayout(false);
+            this.panelIncidencias.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewIncidencias)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -214,5 +241,7 @@
         private System.Windows.Forms.Panel pnlNav2;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Panel panelIncidencias;
+        private System.Windows.Forms.DataGridView dataGridViewIncidencias;
     }
 }
