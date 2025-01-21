@@ -22,6 +22,7 @@ namespace EuskalMoveAppForm
         private string userName;
         private string userStatus;
         private bool userIsAdmin;
+        int parentX, parentY;
 
         public Form2(String email, String nombre, String status, bool admin)
         {
@@ -44,12 +45,36 @@ namespace EuskalMoveAppForm
 
             ConfigureDataGridView();
             // Llamar al método para cargar las incidencias
-           
-       
+            LoadIncidencias();
 
+            // Asignar el evento SelectionChanged al DataGridView
+            dataGridViewIncidencias.SelectionChanged += DataGridViewIncidencias_SelectionChanged;
+
+            // Asignar el evento Click al panelIncidencias
+            panelIncidencias.Click += PanelIncidencias_Click;
+
+            // Asignar el evento Click al botón "ver"
+            verBtn.Click += verBtn_Click;
         }
-       
 
+        private void DataGridViewIncidencias_SelectionChanged(object sender, EventArgs e)
+        {
+            // Habilitar los botones si hay una fila seleccionada
+            if (dataGridViewIncidencias.SelectedRows.Count > 0)
+            {
+                verBtn.Enabled = true;
+                modificarBtn.Enabled = true;
+                eliminarBtn.Enabled = true;
+                crearBtn.Enabled = false;
+            }
+            else
+            {
+                verBtn.Enabled = false;
+                modificarBtn.Enabled = false;
+                eliminarBtn.Enabled = false;
+                crearBtn.Enabled = true;
+            }
+        }
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
@@ -65,6 +90,11 @@ namespace EuskalMoveAppForm
 
             // Establecer la región del formulario a la ruta con bordes redondeados
             this.Region = new Region(path);
+        }
+            private void PanelIncidencias_Click(object sender, EventArgs e)
+        {
+            // Deseleccionar la fila seleccionada en el DataGridView
+            dataGridViewIncidencias.ClearSelection();
         }
 
         private void guna2Button1_Click(object sender, EventArgs e)
@@ -114,10 +144,48 @@ namespace EuskalMoveAppForm
                 pnlNav2.Top = button.Top;
                 pnlNav2.Left = button.Left;
                 pnlNav2.Visible = true;
-         
+
             }
             button.ForeColor = System.Drawing.Color.FromArgb(132, 79, 26);
         }
+        private void verBtn_Click(object sender, EventArgs e)
+        {
+            Form modalbackground = new Form();
+            //bordes redondeados al background
+            modalbackground.Paint += (s, pe) =>
+            {
+                int borderRadius = 30;
+                GraphicsPath path = new GraphicsPath();
+                path.AddArc(0, 0, borderRadius, borderRadius, 180, 90);
+                path.AddArc(modalbackground.Width - borderRadius, 0, borderRadius, borderRadius, 270, 90);
+                path.AddArc(modalbackground.Width - borderRadius, modalbackground.Height - borderRadius, borderRadius, borderRadius, 0, 90);
+                path.AddArc(0, modalbackground.Height - borderRadius, borderRadius, borderRadius, 90, 90);
+                path.CloseAllFigures();
+                modalbackground.Region = new Region(path);
+            };
+
+            using (viewIncidenciasModal modal = new viewIncidenciasModal())
+            {
+                modalbackground.StartPosition = FormStartPosition.Manual;
+                modalbackground.FormBorderStyle = FormBorderStyle.None;
+                modalbackground.Opacity = .70d;
+                modalbackground.BackColor = Color.Black;
+                modalbackground.Size = this.Size;
+                modalbackground.Location = this.Location;
+                modalbackground.ShowInTaskbar = false;
+                modalbackground.Show();
+                modal.Owner = modalbackground;
+
+                parentX = this.Location.X;
+                parentY = this.Location.Y;
+
+                modal.ShowDialog();
+                modalbackground.Dispose();
+            }
+        }
+
+
+
 
         private void Button_MouseLeave(object sender, EventArgs e)
         {
@@ -128,12 +196,13 @@ namespace EuskalMoveAppForm
             {
                 pnlNav2.Visible = false;
                 button.ForeColor = System.Drawing.Color.FromArgb(218, 227, 229); // Cambia esto al color original del texto
-            } else
+            }
+            else
             {
                 button.ForeColor = System.Drawing.Color.FromArgb(223, 154, 87);
             }
 
-            
+
         }
 
         private void guna2Button3_MouseEnter(object sender, EventArgs e)
@@ -169,7 +238,6 @@ namespace EuskalMoveAppForm
 
         private void ConfigureDataGridView()
         {
-            LoadIncidencias();
             dataGridViewIncidencias.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(18, 16, 14);
             dataGridViewIncidencias.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
             dataGridViewIncidencias.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10, FontStyle.Bold);
@@ -201,79 +269,11 @@ namespace EuskalMoveAppForm
             // Establecer todas las columnas como de solo lectura
             dataGridViewIncidencias.ReadOnly = true;
 
-            // Añadir columna de botones al final
-            DataGridViewButtonColumn buttonColumn = new DataGridViewButtonColumn();
-            buttonColumn.HeaderText = "Ver";
-            buttonColumn.Name = "Ver";
-            buttonColumn.Text = "Ver";
-            buttonColumn.UseColumnTextForButtonValue = true;
-            dataGridViewIncidencias.Columns.Add(buttonColumn);
+         
+            dataGridViewIncidencias.RowTemplate.Height = 40;
+            // Configurar el ancho de las columnas
 
-            buttonColumn = new DataGridViewButtonColumn();
-            buttonColumn.HeaderText = "Modificar";
-            buttonColumn.Name = "Modificar";
-            buttonColumn.Text = "Modificar";
-            buttonColumn.UseColumnTextForButtonValue = true;
-            dataGridViewIncidencias.Columns.Add(buttonColumn);
-
-            buttonColumn = new DataGridViewButtonColumn();
-            buttonColumn.HeaderText = "Eliminar";
-            buttonColumn.Name = "Eliminar";
-            buttonColumn.Text = "Eliminar";
-            buttonColumn.UseColumnTextForButtonValue = true;
-            dataGridViewIncidencias.Columns.Add(buttonColumn);
-
-            // Manejar el evento CellContentClick
-            dataGridViewIncidencias.CellContentClick += DataGridViewIncidencias_CellContentClick;
         }
-
-        private void DataGridViewIncidencias_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex >= 0)
-            {
-                if (dataGridViewIncidencias.Columns[e.ColumnIndex].Name == "Ver")
-                {
-                    // Acción para el botón "Ver"
-                    VerIncidencia(e.RowIndex);
-                }
-                else if (dataGridViewIncidencias.Columns[e.ColumnIndex].Name == "Modificar")
-                {
-                    // Acción para el botón "Modificar"
-                    ModificarIncidencia(e.RowIndex);
-                }
-                else if (dataGridViewIncidencias.Columns[e.ColumnIndex].Name == "Eliminar")
-                {
-                    // Acción para el botón "Eliminar"
-                    EliminarIncidencia(e.RowIndex);
-                }
-            }
-        }
-
-        private void VerIncidencia(int rowIndex)
-        {
-            // Lógica para ver la incidencia
-            var incidencia = (Incidencia)dataGridViewIncidencias.Rows[rowIndex].DataBoundItem;
-            MessageBox.Show($"Ver incidencia: {incidencia.incidenceName}");
-        }
-
-        private void ModificarIncidencia(int rowIndex)
-        {
-            // Lógica para modificar la incidencia
-            var incidencia = (Incidencia)dataGridViewIncidencias.Rows[rowIndex].DataBoundItem;
-            MessageBox.Show($"Modificar incidencia: {incidencia.incidenceName}");
-        }
-
-        private void EliminarIncidencia(int rowIndex)
-        {
-            // Lógica para eliminar la incidencia
-            var incidencia = (Incidencia)dataGridViewIncidencias.Rows[rowIndex].DataBoundItem;
-            MessageBox.Show($"Eliminar incidencia: {incidencia.incidenceName}");
-        }
-
-
-
-
-
 
         private async void LoadIncidencias()
         {
@@ -295,8 +295,26 @@ namespace EuskalMoveAppForm
                     string responseBody = await response.Content.ReadAsStringAsync();
                     var incidencias = JsonConvert.DeserializeObject<List<Incidencia>>(responseBody);
 
-                    // Filtrar los campos necesarios y mostrar en el DataGridView
-                    dataGridViewIncidencias.DataSource = incidencias;
+                    // Convertir a IncidenciaView para mostrar en el DataGridView
+                    var incidenciasView = incidencias.Select(i => new IncidenciaView
+                    {
+                        id = i.id,
+                        province = i.province,
+                        cause = i.cause,
+                        cityTown = i.cityTown,
+                        incidenceName = i.incidenceName
+                    }).ToList();
+
+                    dataGridViewIncidencias.DataSource = incidenciasView;
+
+                    // Configurar el ancho de las columnas
+                    dataGridViewIncidencias.Columns["id"].Width = 30; // Ajusta este valor según tus necesidades
+                    dataGridViewIncidencias.Columns["province"].Width = 70; // Ajusta este valor según tus necesidades
+                    dataGridViewIncidencias.Columns["cause"].Width = 160; // Ajusta este valor según tus necesidades
+                    dataGridViewIncidencias.Columns["cityTown"].Width = 120; // Ajusta este valor según tus necesidades
+                    dataGridViewIncidencias.Columns["incidenceName"].Width = 200;
+                    // Deseleccionar cualquier fila al inicio
+                    dataGridViewIncidencias.ClearSelection();
                 }
                 else
                 {
@@ -304,18 +322,34 @@ namespace EuskalMoveAppForm
                 }
             }
         }
-    }
 
-    public class Incidencia
-    {
-        public int id { get; set; }
-        public string province { get; set; }
-        public string cause { get; set; }
-        public string cityTown { get; set; }
-        public string startDate { get; set; }
-        public string endDate { get; set; }
-        public string incidenceName { get; set; }
-        public string latitude { get; set; }
-        public string longitude { get; set; }
+        public class Incidencia
+        {
+            public int id { get; set; }
+            public string incidenceId { get; set; }
+            public string sourceId { get; set; }
+            public string incidenceType { get; set; }
+            public string autonomousRegion { get; set; }
+            public string province { get; set; }
+            public string cause { get; set; }
+            public string cityTown { get; set; }
+            public DateTime startDate { get; set; }
+            public DateTime endDate { get; set; }
+            public string pkStart { get; set; }
+            public string pkEnd { get; set; }
+            public string direction { get; set; }
+            public string incidenceName { get; set; }
+            public string latitude { get; set; }
+            public string longitude { get; set; }
+        }
+
+        public class IncidenciaView
+        {
+            public int id { get; set; }
+            public string province { get; set; }
+            public string cause { get; set; }
+            public string cityTown { get; set; }
+            public string incidenceName { get; set; }
+        }
     }
 }

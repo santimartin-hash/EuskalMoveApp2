@@ -78,6 +78,12 @@
     <Compile Include="ToastForm.Designer.cs">
       <DependentUpon>ToastForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="viewIncidenciasModal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="viewIncidenciasModal.Designer.cs">
+      <DependentUpon>viewIncidenciasModal.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -96,6 +102,9 @@
     </Compile>
     <EmbeddedResource Include="ToastForm.resx">
       <DependentUpon>ToastForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="viewIncidenciasModal.resx">
+      <DependentUpon>viewIncidenciasModal.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
