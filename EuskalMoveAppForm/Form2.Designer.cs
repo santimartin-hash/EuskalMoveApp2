@@ -225,6 +225,7 @@
             this.crearBtn.Size = new System.Drawing.Size(50, 28);
             this.crearBtn.TabIndex = 19;
             this.crearBtn.Text = "➕";
+            this.crearBtn.Click += new System.EventHandler(this.crearBtn_Click);
             // 
             // eliminarBtn
             // 
@@ -248,6 +249,7 @@
             this.eliminarBtn.Size = new System.Drawing.Size(86, 28);
             this.eliminarBtn.TabIndex = 18;
             this.eliminarBtn.Text = "ELIMINAR";
+            this.eliminarBtn.Click += new System.EventHandler(this.eliminarBtn_Click);
             // 
             // modificarBtn
             // 

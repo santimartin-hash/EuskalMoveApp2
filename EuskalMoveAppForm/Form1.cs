@@ -21,6 +21,9 @@ namespace EuskalMoveAppForm
         private string userStatus;
         private bool userIsAdmin;
         private ToastForm currentToast; // Variable para almacenar la referencia al ToastForm
+        //constante para api 
+        private const string apiPort = "localhost";
+
 
         public Form1()
         {
@@ -66,7 +69,7 @@ namespace EuskalMoveAppForm
                 return;
             }
 
-            string apiUrl = "http://10.10.13.169:8080/usuarios/login";
+            string apiUrl = "http://"+apiPort+":8080/usuarios/login";
             var loginData = new
             {
                 email = guna2TextBox1.Text,

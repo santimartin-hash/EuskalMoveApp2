@@ -22,8 +22,9 @@ namespace EuskalMoveAppForm
         private string userName;
         private string userStatus;
         private bool userIsAdmin;
+        private List<Incidencia> incidencias; // Almacenar la lista completa de incidencias
         int parentX, parentY;
-
+        private const string apiPort = "localhost";
         public Form2(String email, String nombre, String status, bool admin)
         {
             InitializeComponent();
@@ -55,6 +56,7 @@ namespace EuskalMoveAppForm
 
             // Asignar el evento Click al botón "ver"
             verBtn.Click += verBtn_Click;
+            modificarBtn.Click += modificarBtn_Click;
         }
 
         private void DataGridViewIncidencias_SelectionChanged(object sender, EventArgs e)
@@ -91,7 +93,7 @@ namespace EuskalMoveAppForm
             // Establecer la región del formulario a la ruta con bordes redondeados
             this.Region = new Region(path);
         }
-            private void PanelIncidencias_Click(object sender, EventArgs e)
+        private void PanelIncidencias_Click(object sender, EventArgs e)
         {
             // Deseleccionar la fila seleccionada en el DataGridView
             dataGridViewIncidencias.ClearSelection();
@@ -150,42 +152,101 @@ namespace EuskalMoveAppForm
         }
         private void verBtn_Click(object sender, EventArgs e)
         {
-            Form modalbackground = new Form();
-            //bordes redondeados al background
-            modalbackground.Paint += (s, pe) =>
+            if (dataGridViewIncidencias.SelectedRows.Count > 0)
             {
-                int borderRadius = 30;
-                GraphicsPath path = new GraphicsPath();
-                path.AddArc(0, 0, borderRadius, borderRadius, 180, 90);
-                path.AddArc(modalbackground.Width - borderRadius, 0, borderRadius, borderRadius, 270, 90);
-                path.AddArc(modalbackground.Width - borderRadius, modalbackground.Height - borderRadius, borderRadius, borderRadius, 0, 90);
-                path.AddArc(0, modalbackground.Height - borderRadius, borderRadius, borderRadius, 90, 90);
-                path.CloseAllFigures();
-                modalbackground.Region = new Region(path);
-            };
+                // Obtener la incidencia seleccionada
+                var selectedRow = dataGridViewIncidencias.SelectedRows[0];
+                var incidenciaView = (IncidenciaView)selectedRow.DataBoundItem;
 
-            using (viewIncidenciasModal modal = new viewIncidenciasModal())
-            {
-                modalbackground.StartPosition = FormStartPosition.Manual;
-                modalbackground.FormBorderStyle = FormBorderStyle.None;
-                modalbackground.Opacity = .70d;
-                modalbackground.BackColor = Color.Black;
-                modalbackground.Size = this.Size;
-                modalbackground.Location = this.Location;
-                modalbackground.ShowInTaskbar = false;
-                modalbackground.Show();
-                modal.Owner = modalbackground;
+                // Buscar la incidencia completa en la lista original
+                var incidencia = incidencias.FirstOrDefault(i => i.id == incidenciaView.id);
 
-                parentX = this.Location.X;
-                parentY = this.Location.Y;
+                if (incidencia != null)
+                {
+                    Form modalbackground = new Form();
+                    //bordes redondeados al background
+                    modalbackground.Paint += (s, pe) =>
+                    {
+                        int borderRadius = 30;
+                        GraphicsPath path = new GraphicsPath();
+                        path.AddArc(0, 0, borderRadius, borderRadius, 180, 90);
+                        path.AddArc(modalbackground.Width - borderRadius, 0, borderRadius, borderRadius, 270, 90);
+                        path.AddArc(modalbackground.Width - borderRadius, modalbackground.Height - borderRadius, borderRadius, borderRadius, 0, 90);
+                        path.AddArc(0, modalbackground.Height - borderRadius, borderRadius, borderRadius, 90, 90);
+                        path.CloseAllFigures();
+                        modalbackground.Region = new Region(path);
+                    };
 
-                modal.ShowDialog();
-                modalbackground.Dispose();
+                    using (viewIncidenciasModal modal = new viewIncidenciasModal(this, incidencia, true)) // Pasar true para solo lectura
+                    {
+                        modalbackground.StartPosition = FormStartPosition.Manual;
+                        modalbackground.FormBorderStyle = FormBorderStyle.None;
+                        modalbackground.Opacity = .70d;
+                        modalbackground.BackColor = Color.Black;
+                        modalbackground.Size = this.Size;
+                        modalbackground.Location = this.Location;
+                        modalbackground.ShowInTaskbar = false;
+                        modalbackground.Show();
+                        modal.Owner = modalbackground;
+
+                        parentX = this.Location.X;
+                        parentY = this.Location.Y;
+
+                        modal.ShowDialog();
+                        modalbackground.Dispose();
+                    }
+                }
             }
         }
 
+        private void modificarBtn_Click(object sender, EventArgs e)
+        {
+            if (dataGridViewIncidencias.SelectedRows.Count > 0)
+            {
+                // Obtener la incidencia seleccionada
+                var selectedRow = dataGridViewIncidencias.SelectedRows[0];
+                var incidenciaView = (IncidenciaView)selectedRow.DataBoundItem;
 
+                // Buscar la incidencia completa en la lista original
+                var incidencia = incidencias.FirstOrDefault(i => i.id == incidenciaView.id);
 
+                if (incidencia != null)
+                {
+                    Form modalbackground = new Form();
+                    //bordes redondeados al background
+                    modalbackground.Paint += (s, pe) =>
+                    {
+                        int borderRadius = 30;
+                        GraphicsPath path = new GraphicsPath();
+                        path.AddArc(0, 0, borderRadius, borderRadius, 180, 90);
+                        path.AddArc(modalbackground.Width - borderRadius, 0, borderRadius, borderRadius, 270, 90);
+                        path.AddArc(modalbackground.Width - borderRadius, modalbackground.Height - borderRadius, borderRadius, borderRadius, 0, 90);
+                        path.AddArc(0, modalbackground.Height - borderRadius, borderRadius, borderRadius, 90, 90);
+                        path.CloseAllFigures();
+                        modalbackground.Region = new Region(path);
+                    };
+
+                    using (viewIncidenciasModal modal = new viewIncidenciasModal(this, incidencia, false)) // Pasar false para editable
+                    {
+                        modalbackground.StartPosition = FormStartPosition.Manual;
+                        modalbackground.FormBorderStyle = FormBorderStyle.None;
+                        modalbackground.Opacity = .70d;
+                        modalbackground.BackColor = Color.Black;
+                        modalbackground.Size = this.Size;
+                        modalbackground.Location = this.Location;
+                        modalbackground.ShowInTaskbar = false;
+                        modalbackground.Show();
+                        modal.Owner = modalbackground;
+
+                        parentX = this.Location.X;
+                        parentY = this.Location.Y;
+
+                        modal.ShowDialog();
+                        modalbackground.Dispose();
+                    }
+                }
+            }
+        }
 
         private void Button_MouseLeave(object sender, EventArgs e)
         {
@@ -201,8 +262,6 @@ namespace EuskalMoveAppForm
             {
                 button.ForeColor = System.Drawing.Color.FromArgb(223, 154, 87);
             }
-
-
         }
 
         private void guna2Button3_MouseEnter(object sender, EventArgs e)
@@ -269,7 +328,7 @@ namespace EuskalMoveAppForm
             // Establecer todas las columnas como de solo lectura
             dataGridViewIncidencias.ReadOnly = true;
 
-         
+
             dataGridViewIncidencias.RowTemplate.Height = 40;
             // Configurar el ancho de las columnas
 
@@ -277,7 +336,7 @@ namespace EuskalMoveAppForm
 
         private async void LoadIncidencias()
         {
-            string apiUrl = "http://10.10.13.169:8080/incidencias";
+            string apiUrl = "http://" + apiPort + ":8080/incidencias";
             using (HttpClient client = new HttpClient())
             {
                 HttpResponseMessage response;
@@ -293,7 +352,7 @@ namespace EuskalMoveAppForm
                 if (response.IsSuccessStatusCode)
                 {
                     string responseBody = await response.Content.ReadAsStringAsync();
-                    var incidencias = JsonConvert.DeserializeObject<List<Incidencia>>(responseBody);
+                    incidencias = JsonConvert.DeserializeObject<List<Incidencia>>(responseBody); // Almacenar la lista completa de incidencias
 
                     // Convertir a IncidenciaView para mostrar en el DataGridView
                     var incidenciasView = incidencias.Select(i => new IncidenciaView
@@ -322,7 +381,10 @@ namespace EuskalMoveAppForm
                 }
             }
         }
-
+        public void ReloadDataGrid()
+        {
+            LoadIncidencias();
+        }
         public class Incidencia
         {
             public int id { get; set; }
@@ -333,14 +395,99 @@ namespace EuskalMoveAppForm
             public string province { get; set; }
             public string cause { get; set; }
             public string cityTown { get; set; }
-            public DateTime startDate { get; set; }
-            public DateTime endDate { get; set; }
+            public string startDate { get; set; }
+            public string endDate { get; set; }
             public string pkStart { get; set; }
             public string pkEnd { get; set; }
             public string direction { get; set; }
             public string incidenceName { get; set; }
             public string latitude { get; set; }
             public string longitude { get; set; }
+        }
+
+        private void crearBtn_Click(object sender, EventArgs e)
+        {
+            Form modalbackground = new Form();
+            //bordes redondeados al background
+            modalbackground.Paint += (s, pe) =>
+            {
+                int borderRadius = 30;
+                GraphicsPath path = new GraphicsPath();
+                path.AddArc(0, 0, borderRadius, borderRadius, 180, 90);
+                path.AddArc(modalbackground.Width - borderRadius, 0, borderRadius, borderRadius, 270, 90);
+                path.AddArc(modalbackground.Width - borderRadius, modalbackground.Height - borderRadius, borderRadius, borderRadius, 0, 90);
+                path.AddArc(0, modalbackground.Height - borderRadius, borderRadius, borderRadius, 90, 90);
+                path.CloseAllFigures();
+                modalbackground.Region = new Region(path);
+            };
+
+            using (viewIncidenciasModal modal = new viewIncidenciasModal(this, new Incidencia(), false, true)) // Pasar true para creación
+            {
+                modalbackground.StartPosition = FormStartPosition.Manual;
+                modalbackground.FormBorderStyle = FormBorderStyle.None;
+                modalbackground.Opacity = .70d;
+                modalbackground.BackColor = Color.Black;
+                modalbackground.Size = this.Size;
+                modalbackground.Location = this.Location;
+                modalbackground.ShowInTaskbar = false;
+                modalbackground.Show();
+                modal.Owner = modalbackground;
+
+                parentX = this.Location.X;
+                parentY = this.Location.Y;
+
+                modal.ShowDialog();
+                modalbackground.Dispose();
+            }
+        }
+
+        private void eliminarBtn_Click(object sender, EventArgs e)
+        {
+            if (dataGridViewIncidencias.SelectedRows.Count > 0)
+            {
+                // Obtener la incidencia seleccionada
+                var selectedRow = dataGridViewIncidencias.SelectedRows[0];
+                var incidenciaView = (IncidenciaView)selectedRow.DataBoundItem;
+
+                // Buscar la incidencia completa en la lista original
+                var incidencia = incidencias.FirstOrDefault(i => i.id == incidenciaView.id);
+
+                if (incidencia != null)
+                {
+                    Form modalbackground = new Form();
+                    //bordes redondeados al background
+                    modalbackground.Paint += (s, pe) =>
+                    {
+                        int borderRadius = 30;
+                        GraphicsPath path = new GraphicsPath();
+                        path.AddArc(0, 0, borderRadius, borderRadius, 180, 90);
+                        path.AddArc(modalbackground.Width - borderRadius, 0, borderRadius, borderRadius, 270, 90);
+                        path.AddArc(modalbackground.Width - borderRadius, modalbackground.Height - borderRadius, borderRadius, borderRadius, 0, 90);
+                        path.AddArc(0, modalbackground.Height - borderRadius, borderRadius, borderRadius, 90, 90);
+                        path.CloseAllFigures();
+                        modalbackground.Region = new Region(path);
+                    };
+
+                    using (deleteIncidenciasModal modal = new deleteIncidenciasModal(this, incidencia.id)) // Pasar el ID de la incidencia
+                    {
+                        modalbackground.StartPosition = FormStartPosition.Manual;
+                        modalbackground.FormBorderStyle = FormBorderStyle.None;
+                        modalbackground.Opacity = .70d;
+                        modalbackground.BackColor = Color.Black;
+                        modalbackground.Size = this.Size;
+                        modalbackground.Location = this.Location;
+                        modalbackground.ShowInTaskbar = false;
+                        modalbackground.Show();
+                        modal.Owner = modalbackground;
+
+                        parentX = this.Location.X;
+                        parentY = this.Location.Y;
+
+                        modal.ShowDialog();
+                        modalbackground.Dispose();
+                    }
+                }
+            }
         }
 
         public class IncidenciaView
@@ -353,3 +500,4 @@ namespace EuskalMoveAppForm
         }
     }
 }
+
