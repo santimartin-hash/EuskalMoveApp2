@@ -12,12 +12,18 @@ namespace EuskalMoveAppForm
     {
         private Form parentForm;
         private int incidenciaId;
+        private Timer fadeInTimer;
 
         public deleteIncidenciasModal(Form parentForm, int incidenciaId)
         {
             InitializeComponent();
             this.parentForm = parentForm;
             this.incidenciaId = incidenciaId;
+
+            // Configurar el Timer para el efecto de aparición
+            fadeInTimer = new Timer();
+            fadeInTimer.Interval = 5; // Intervalo en milisegundos
+            fadeInTimer.Tick += FadeInTimer_Tick;
         }
 
         private async void deleteBtn_Click(object sender, EventArgs e)
@@ -72,11 +78,25 @@ namespace EuskalMoveAppForm
 
         private void deleteIncidenciasModal_Load(object sender, EventArgs e)
         {
+            this.Opacity = 0;
+            fadeInTimer.Start();
+
             this.Location = new Point(
                 parentForm.Location.X + (parentForm.Width - this.Width) / 2,
                 parentForm.Location.Y + (parentForm.Height - this.Height) / 2
             );
         }
+
+        private void FadeInTimer_Tick(object sender, EventArgs e)
+        {
+            if (this.Opacity < 1)
+            {
+                this.Opacity += 0.05;
+            }
+            else
+            {
+                fadeInTimer.Stop();
+            }
+        }
     }
 }
-

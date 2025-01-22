@@ -21,6 +21,7 @@ namespace EuskalMoveAppForm
         private Form2.Incidencia incidencia;
         private bool isReadOnly;
         private bool isCreating;
+        private Timer fadeInTimer;
 
         public viewIncidenciasModal(Form parentForm, Form2.Incidencia incidencia, bool isReadOnly, bool isCreating = false)
         {
@@ -40,14 +41,34 @@ namespace EuskalMoveAppForm
             {
                 modificarBtn.Text = "MODIFICAR";
             }
+
+            // Configurar el Timer para el efecto de aparición
+            fadeInTimer = new Timer();
+            fadeInTimer.Interval = 5; // Intervalo en milisegundos
+            fadeInTimer.Tick += FadeInTimer_Tick;
+        }
+
+        private void FadeInTimer_Tick(object sender, EventArgs e)
+        {
+            if (this.Opacity < 1)
+            {
+                this.Opacity += 0.05;
+            }
+            else
+            {
+                fadeInTimer.Stop();
+            }
         }
 
         private void viewIncidenciasModal_Load(object sender, EventArgs e)
         {
+            this.Opacity = 0;
+            fadeInTimer.Start();
+
             this.Location = new Point(
-                parentForm.Location.X + parentForm.Width - this.Width - 60,
-                parentForm.Location.Y + parentForm.Height - this.Height - 60
-            );
+                 parentForm.Location.X + (parentForm.Width - this.Width) / 2,
+                 parentForm.Location.Y + (parentForm.Height - this.Height) / 2
+             );
 
             if (!isCreating)
             {
@@ -128,6 +149,7 @@ namespace EuskalMoveAppForm
                 cityTown = cityTown.Text,
                 startDate = startDate.Text,
                 endDate = endDate.Text,
+
                 pkStart = pkStart.Text,
                 pkEnd = pkEnd.Text,
                 direction = direction.Text,
