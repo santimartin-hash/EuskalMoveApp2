@@ -194,6 +194,7 @@
             this.sourceId.SelectedText = "";
             this.sourceId.Size = new System.Drawing.Size(66, 25);
             this.sourceId.TabIndex = 22;
+            this.sourceId.TextChanged += new System.EventHandler(this.TextBox_TextChanged);
             // 
             // guna2HtmlLabel4
             // 
@@ -266,6 +267,7 @@
             this.autonomousRegion.SelectedText = "";
             this.autonomousRegion.Size = new System.Drawing.Size(66, 25);
             this.autonomousRegion.TabIndex = 26;
+            this.autonomousRegion.TextChanged += new System.EventHandler(this.TextBox_TextChanged);
             // 
             // guna2HtmlLabel6
             // 
@@ -302,6 +304,7 @@
             this.province.SelectedText = "";
             this.province.Size = new System.Drawing.Size(144, 25);
             this.province.TabIndex = 28;
+            this.province.TextChanged += new System.EventHandler(this.TextBox_TextChanged);
             // 
             // guna2HtmlLabel7
             // 
@@ -338,6 +341,7 @@
             this.cause.SelectedText = "";
             this.cause.Size = new System.Drawing.Size(625, 25);
             this.cause.TabIndex = 30;
+            this.cause.TextChanged += new System.EventHandler(this.TextBox_TextChanged);
             // 
             // guna2HtmlLabel8
             // 
@@ -374,6 +378,7 @@
             this.cityTown.SelectedText = "";
             this.cityTown.Size = new System.Drawing.Size(152, 25);
             this.cityTown.TabIndex = 32;
+            this.cityTown.TextChanged += new System.EventHandler(this.TextBox_TextChanged);
             // 
             // guna2HtmlLabel9
             // 
@@ -626,6 +631,7 @@
             this.latitude.SelectedText = "";
             this.latitude.Size = new System.Drawing.Size(170, 25);
             this.latitude.TabIndex = 46;
+            this.latitude.TextChanged += new System.EventHandler(this.TextBox_TextChanged);
             // 
             // guna2HtmlLabel16
             // 
@@ -662,6 +668,7 @@
             this.longitude.SelectedText = "";
             this.longitude.Size = new System.Drawing.Size(191, 25);
             this.longitude.TabIndex = 48;
+            this.longitude.TextChanged += new System.EventHandler(this.TextBox_TextChanged);
             // 
             // modificarBtn
             // 

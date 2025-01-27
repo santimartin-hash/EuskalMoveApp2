@@ -34,6 +34,7 @@ namespace EuskalMoveAppForm
                 var response = await client.DeleteAsync(url);
                 if (response.IsSuccessStatusCode)
                 {
+                    CloseExistingToast();
                     ToastForm toastForm = new ToastForm(parentForm, "Success", "Incidencia eliminada correctamente.");
                     toastForm.Show();
 
@@ -47,13 +48,24 @@ namespace EuskalMoveAppForm
                 }
                 else
                 {
+                    CloseExistingToast();
                     ToastForm toastForm = new ToastForm(parentForm, "Error", "Error al eliminar la incidencia.");
                     toastForm.Show();
                     this.Close();
                 }
             }
         }
-
+        private void CloseExistingToast()
+        {
+            foreach (Form form in Application.OpenForms)
+            {
+                if (form is ToastForm)
+                {
+                    form.Close();
+                    break;
+                }
+            }
+        }
         private void cancelBtn_Click(object sender, EventArgs e)
         {
             this.Close();

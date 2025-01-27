@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
+﻿using Guna.UI2.WinForms;
+using Newtonsoft.Json;
 using System.Drawing.Drawing2D;
-using System.IO.Ports;
-using System.Linq;
+using System.Drawing;
 using System.Net.Http;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using Newtonsoft.Json;
-using static EuskalMoveAppForm.Form2;
+using System;
 
 namespace EuskalMoveAppForm
 {
@@ -22,6 +16,7 @@ namespace EuskalMoveAppForm
         private bool isReadOnly;
         private bool isCreating;
         private Timer fadeInTimer;
+        private ToastForm currentToastForm; // Variable para almacenar el ToastForm actual
 
         public viewIncidenciasModal(Form parentForm, Form2.Incidencia incidencia, bool isReadOnly, bool isCreating = false)
         {
@@ -46,6 +41,28 @@ namespace EuskalMoveAppForm
             fadeInTimer = new Timer();
             fadeInTimer.Interval = 5; // Intervalo en milisegundos
             fadeInTimer.Tick += FadeInTimer_Tick;
+
+            // Asignar el evento TextChanged a los TextBox relevantes
+            sourceId.TextChanged += TextBox_TextChanged;
+            cityTown.TextChanged += TextBox_TextChanged;
+            autonomousRegion.TextChanged += TextBox_TextChanged;
+            province.TextChanged += TextBox_TextChanged;
+            cause.TextChanged += TextBox_TextChanged;
+            latitude.TextChanged += TextBox_TextChanged;
+            longitude.TextChanged += TextBox_TextChanged;
+        }
+
+        private void TextBox_TextChanged(object sender, EventArgs e)
+        {
+            Guna2TextBox textBox = sender as Guna2TextBox;
+            if (!string.IsNullOrWhiteSpace(textBox.Text))
+            {
+                textBox.BorderColor = Color.Gray;
+            }
+            else
+            {
+                textBox.BorderColor = Color.IndianRed;
+            }
         }
 
         private void FadeInTimer_Tick(object sender, EventArgs e)
@@ -99,7 +116,7 @@ namespace EuskalMoveAppForm
         {
             modificarBtn.Visible = !readOnly;
             id.ReadOnly = true;
-            incidenceId.ReadOnly = readOnly;
+            incidenceId.ReadOnly = true;
             sourceId.ReadOnly = readOnly;
             incidenceType.ReadOnly = readOnly;
             autonomousRegion.ReadOnly = readOnly;
@@ -136,8 +153,96 @@ namespace EuskalMoveAppForm
             longitude.Text = string.Empty;
         }
 
+        private bool ValidateFields()
+        {
+            bool isValid = true;
+
+            if (string.IsNullOrWhiteSpace(sourceId.Text))
+            {
+                sourceId.BorderColor = Color.IndianRed;
+                isValid = false;
+            }
+            else
+            {
+                sourceId.BorderColor = Color.Gray;
+            }
+
+            if (string.IsNullOrWhiteSpace(cityTown.Text))
+            {
+                cityTown.BorderColor = Color.IndianRed;
+                isValid = false;
+            }
+            else
+            {
+                cityTown.BorderColor = Color.Gray;
+            }
+
+            if (string.IsNullOrWhiteSpace(autonomousRegion.Text))
+            {
+                autonomousRegion.BorderColor = Color.IndianRed;
+                isValid = false;
+            }
+            else
+            {
+                autonomousRegion.BorderColor = Color.Gray;
+            }
+
+            if (string.IsNullOrWhiteSpace(province.Text))
+            {
+                province.BorderColor = Color.IndianRed;
+                isValid = false;
+            }
+            else
+            {
+                province.BorderColor = Color.Gray;
+            }
+
+            if (string.IsNullOrWhiteSpace(cause.Text))
+            {
+                cause.BorderColor = Color.IndianRed;
+                isValid = false;
+            }
+            else
+            {
+                cause.BorderColor = Color.Gray;
+            }
+
+            if (string.IsNullOrWhiteSpace(latitude.Text))
+            {
+                latitude.BorderColor = Color.IndianRed;
+                isValid = false;
+            }
+            else
+            {
+                latitude.BorderColor = Color.Gray;
+            }
+
+            if (string.IsNullOrWhiteSpace(longitude.Text))
+            {
+                longitude.BorderColor = Color.IndianRed;
+                isValid = false;
+            }
+            else
+            {
+                longitude.BorderColor = Color.Gray;
+            }
+
+            return isValid;
+        }
+
         private async void modificarBtn_Click(object sender, EventArgs e)
         {
+            if (!ValidateFields())
+            {
+                // Cerrar el ToastForm actual si existe
+                currentToastForm?.Close();
+
+                // Mostrar el ToastForm con el mensaje de error
+                currentToastForm = new ToastForm(this.Owner, "Error", "Complete todos los campos obligatorios.");
+                currentToastForm.Show();
+                return;
+            }
+
             var incidenciaModificada = new
             {
                 incidenceId = incidenceId.Text,
@@ -149,7 +254,6 @@ namespace EuskalMoveAppForm
                 cityTown = cityTown.Text,
                 startDate = startDate.Text,
                 endDate = endDate.Text,
-
                 pkStart = pkStart.Text,
                 pkEnd = pkEnd.Text,
                 direction = direction.Text,
@@ -175,10 +279,13 @@ namespace EuskalMoveAppForm
                     response = await client.PutAsync(url, content);
                 }
 
+                // Cerrar el ToastForm actual si existe
+                currentToastForm?.Close();
+
                 if (response.IsSuccessStatusCode)
                 {
-                    ToastForm toastForm = new ToastForm(parentForm, "Success", isCreating ? "Incidencia creada correctamente." : "Incidencia modificada correctamente.");
-                    toastForm.Show();
+                    currentToastForm = new ToastForm(parentForm, "Success", isCreating ? "Incidencia creada correctamente." : "Incidencia modificada correctamente.");
+                    currentToastForm.Show();
 
                     // Llamar al método para recargar el DataGridView en Form2
                     if (parentForm is Form2 form2)
@@ -190,9 +297,8 @@ namespace EuskalMoveAppForm
                 }
                 else
                 {
-                    ToastForm toastForm = new ToastForm(parentForm, "Error", isCreating ? "Error al crear la incidencia." : "Error al modificar la incidencia.");
-                    toastForm.Show();
-                    this.Close();
+                    currentToastForm = new ToastForm(parentForm, "Error", isCreating ? "Error al crear la incidencia." : "Error al modificar la incidencia.");
+                    currentToastForm.Show();
                 }
             }
         }
@@ -225,4 +331,3 @@ namespace EuskalMoveAppForm
         }
     }
 }
-

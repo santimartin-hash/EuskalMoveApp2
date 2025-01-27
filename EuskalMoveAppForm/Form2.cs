@@ -58,7 +58,17 @@ namespace EuskalMoveAppForm
             verBtn.Click += verBtn_Click;
             modificarBtn.Click += modificarBtn_Click;
         }
-
+        private void CloseExistingToast()
+        {
+            foreach (Form form in Application.OpenForms)
+            {
+                if (form is ToastForm)
+                {
+                    form.Close();
+                    break;
+                }
+            }
+        }
         private void DataGridViewIncidencias_SelectionChanged(object sender, EventArgs e)
         {
             // Habilitar los botones si hay una fila seleccionada
@@ -287,12 +297,39 @@ namespace EuskalMoveAppForm
 
         private void Logout()
         {
-            // Cerrar el formulario actual (Form2)
-            this.Close();
+            Form modalbackground = new Form();
+            //bordes redondeados al background
+            modalbackground.Paint += (s, pe) =>
+            {
+                int borderRadius = 30;
+                GraphicsPath path = new GraphicsPath();
+                path.AddArc(0, 0, borderRadius, borderRadius, 180, 90);
+                path.AddArc(modalbackground.Width - borderRadius, 0, borderRadius, borderRadius, 270, 90);
+                path.AddArc(modalbackground.Width - borderRadius, modalbackground.Height - borderRadius, borderRadius, borderRadius, 0, 90);
+                path.AddArc(0, modalbackground.Height - borderRadius, borderRadius, borderRadius, 90, 90);
+                path.CloseAllFigures();
+                modalbackground.Region = new Region(path);
+            };
 
-            // Mostrar el formulario de inicio de sesión (Form1)
-            Form1 form1 = new Form1();
-            form1.Show();
+            using (logoutModal modal = new logoutModal(this))
+            {
+                modalbackground.StartPosition = FormStartPosition.Manual;
+                modalbackground.FormBorderStyle = FormBorderStyle.None;
+                modalbackground.Opacity = .70d;
+                modalbackground.BackColor = Color.Black;
+                modalbackground.Size = this.Size;
+                modalbackground.Location = this.Location;
+                modalbackground.ShowInTaskbar = false;
+                modalbackground.Show();
+                modal.Owner = modalbackground;
+                modal.StartPosition = FormStartPosition.CenterScreen;
+
+                parentX = this.Location.X;
+                parentY = this.Location.Y;
+
+                modal.ShowDialog();
+                modalbackground.Dispose();
+            }
         }
 
         private void ConfigureDataGridView()
@@ -346,7 +383,9 @@ namespace EuskalMoveAppForm
                 }
                 catch (HttpRequestException ex)
                 {
+                    CloseExistingToast();
                     ToastForm toastForm = new ToastForm(this, "Error", "Error de conexión: " + ex.Message);
+                    toastForm.Show();
                     return;
                 }
                 if (response.IsSuccessStatusCode)
@@ -377,7 +416,9 @@ namespace EuskalMoveAppForm
                 }
                 else
                 {
+                    CloseExistingToast();
                     ToastForm toastForm = new ToastForm(this, "Error", "Error al cargar las incidencias.");
+                    toastForm.Show();
                 }
             }
         }
