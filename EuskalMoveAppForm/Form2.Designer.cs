@@ -38,13 +38,14 @@
             this.guna2Button2 = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Button1 = new Guna.UI2.WinForms.Guna2Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.userControl21 = new EuskalMoveApp.UserControl2();
             this.panelIncidencias = new System.Windows.Forms.Panel();
+            this.generarInformeBtn = new Guna.UI2.WinForms.Guna2GradientButton();
             this.crearBtn = new Guna.UI2.WinForms.Guna2GradientButton();
             this.eliminarBtn = new Guna.UI2.WinForms.Guna2GradientButton();
             this.modificarBtn = new Guna.UI2.WinForms.Guna2GradientButton();
             this.verBtn = new Guna.UI2.WinForms.Guna2GradientButton();
             this.dataGridViewIncidencias = new System.Windows.Forms.DataGridView();
+            this.userControl21 = new EuskalMoveApp.UserControl2();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.pnlNav.SuspendLayout();
@@ -184,16 +185,9 @@
             this.label1.TabIndex = 2;
             this.label1.Text = "Admin User";
             // 
-            // userControl21
-            // 
-            this.userControl21.BackColor = System.Drawing.Color.Transparent;
-            this.userControl21.Location = new System.Drawing.Point(1, -1);
-            this.userControl21.Name = "userControl21";
-            this.userControl21.Size = new System.Drawing.Size(901, 36);
-            this.userControl21.TabIndex = 0;
-            // 
             // panelIncidencias
             // 
+            this.panelIncidencias.Controls.Add(this.generarInformeBtn);
             this.panelIncidencias.Controls.Add(this.crearBtn);
             this.panelIncidencias.Controls.Add(this.eliminarBtn);
             this.panelIncidencias.Controls.Add(this.modificarBtn);
@@ -203,6 +197,29 @@
             this.panelIncidencias.Name = "panelIncidencias";
             this.panelIncidencias.Size = new System.Drawing.Size(704, 493);
             this.panelIncidencias.TabIndex = 2;
+            // 
+            // generarInformeBtn
+            // 
+            this.generarInformeBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(218)))), ((int)(((byte)(227)))), ((int)(((byte)(229)))));
+            this.generarInformeBtn.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(18)))), ((int)(((byte)(16)))), ((int)(((byte)(14)))));
+            this.generarInformeBtn.BorderRadius = 12;
+            this.generarInformeBtn.BorderThickness = 1;
+            this.generarInformeBtn.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.generarInformeBtn.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.generarInformeBtn.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.generarInformeBtn.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.generarInformeBtn.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.generarInformeBtn.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(154)))), ((int)(((byte)(87)))));
+            this.generarInformeBtn.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(154)))), ((int)(((byte)(87)))));
+            this.generarInformeBtn.Font = new System.Drawing.Font("Leelawadee UI", 9F, System.Drawing.FontStyle.Bold);
+            this.generarInformeBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(18)))), ((int)(((byte)(16)))), ((int)(((byte)(14)))));
+            this.generarInformeBtn.Location = new System.Drawing.Point(59, 385);
+            this.generarInformeBtn.Name = "generarInformeBtn";
+            this.generarInformeBtn.PressedColor = System.Drawing.Color.Transparent;
+            this.generarInformeBtn.Size = new System.Drawing.Size(144, 28);
+            this.generarInformeBtn.TabIndex = 20;
+            this.generarInformeBtn.Text = "GENERAR INFORME";
+            this.generarInformeBtn.Click += new System.EventHandler(this.generarInformeBtn_Click);
             // 
             // crearBtn
             // 
@@ -309,6 +326,14 @@
             this.dataGridViewIncidencias.Size = new System.Drawing.Size(688, 352);
             this.dataGridViewIncidencias.TabIndex = 0;
             // 
+            // userControl21
+            // 
+            this.userControl21.BackColor = System.Drawing.Color.Transparent;
+            this.userControl21.Location = new System.Drawing.Point(1, -1);
+            this.userControl21.Name = "userControl21";
+            this.userControl21.Size = new System.Drawing.Size(901, 36);
+            this.userControl21.TabIndex = 0;
+            // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -350,5 +375,6 @@
         private Guna.UI2.WinForms.Guna2GradientButton modificarBtn;
         private Guna.UI2.WinForms.Guna2GradientButton verBtn;
         private Guna.UI2.WinForms.Guna2GradientButton crearBtn;
+        private Guna.UI2.WinForms.Guna2GradientButton generarInformeBtn;
     }
 }

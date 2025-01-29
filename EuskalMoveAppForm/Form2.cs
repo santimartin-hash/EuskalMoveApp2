@@ -1,16 +1,21 @@
-﻿using Newtonsoft.Json;
+﻿using iTextSharp.text.pdf;
+using iTextSharp.text;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.UI.WebControls;
 using System.Windows.Forms;
+using ScottPlot;
+using System.Linq;
 
 namespace EuskalMoveAppForm
 {
@@ -336,7 +341,7 @@ namespace EuskalMoveAppForm
         {
             dataGridViewIncidencias.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(18, 16, 14);
             dataGridViewIncidencias.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
-            dataGridViewIncidencias.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10, FontStyle.Bold);
+            dataGridViewIncidencias.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 10, FontStyle.Bold);
             dataGridViewIncidencias.ColumnHeadersDefaultCellStyle.SelectionBackColor = Color.FromArgb(18, 16, 14); // Cambia el color de fondo de la celda del encabezado seleccionada
             dataGridViewIncidencias.EnableHeadersVisualStyles = false;
 
@@ -400,7 +405,8 @@ namespace EuskalMoveAppForm
                         province = i.province,
                         cause = i.cause,
                         cityTown = i.cityTown,
-                        incidenceName = i.incidenceName
+                        incidenceName = i.incidenceName,
+                        OriginalIncidencia = i
                     }).ToList();
 
                     dataGridViewIncidencias.DataSource = incidenciasView;
@@ -531,6 +537,102 @@ namespace EuskalMoveAppForm
             }
         }
 
+        private void generarInformeBtn_Click(object sender, EventArgs e)
+        {
+            // Verificar si hay datos en el DataGridView
+            if (dataGridViewIncidencias.Rows.Count == 0)
+            {
+                MessageBox.Show("No hay datos para generar el informe.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            // Crear listas para almacenar los datos
+            var ciudades = new Dictionary<string, int>();
+            var tiposIncidencia = new Dictionary<string, int>();
+
+            foreach (DataGridViewRow row in dataGridViewIncidencias.Rows)
+            {
+                // Acceder al objeto de vista y luego al objeto original
+                var incidenciaView = (IncidenciaView)row.DataBoundItem;
+                var incidencia = incidenciaView.OriginalIncidencia;
+
+                // Contar incidencias por ciudad
+                if (ciudades.ContainsKey(incidencia.cityTown))
+                {
+                    ciudades[incidencia.cityTown]++;
+                }
+                else
+                {
+                    ciudades[incidencia.cityTown] = 1;
+                }
+
+                // Contar incidencias por tipo
+                if (tiposIncidencia.ContainsKey(incidencia.incidenceType))
+                {
+                    tiposIncidencia[incidencia.incidenceType]++;
+                }
+                else
+                {
+                    tiposIncidencia[incidencia.incidenceType] = 1;
+                }
+            }
+
+            // Generar gráfico de incidencias por ciudad
+            var plt1 = new ScottPlot.Plot(600, 400);
+            double[] valoresCiudades = ciudades.Values.Select(x => (double)x).ToArray();
+            plt1.AddBar(valoresCiudades);
+            plt1.XTicks(ciudades.Keys.Select((x, i) => (double)i).ToArray(), ciudades.Keys.ToArray());
+            plt1.Title("Ciudades con más incidencias");
+            plt1.YLabel("Número de incidencias");
+
+            // Generar gráfico circular para tipos de incidencia
+            var plt3 = new ScottPlot.Plot(600, 400);
+            double[] valoresTipos = tiposIncidencia.Values.Select(x => (double)x).ToArray();
+            string[] etiquetasTipos = tiposIncidencia.Keys.ToArray();
+
+            plt3.PlotPie(valoresTipos, etiquetasTipos);
+            plt3.Title("Distribución de Tipos de Incidencias");
+
+            // Guardar gráficos como imágenes
+            string path1 = "ciudades_incidencias.png";
+            string path3 = "tipos_incidencias.png";
+
+            plt1.SaveFig(path1);
+            plt3.SaveFig(path3);
+
+            // Crear documento PDF
+            Document document = new Document();
+            string pdfPath = "informe_incidencias.pdf";
+
+            PdfWriter.GetInstance(document, new FileStream(pdfPath, FileMode.Create));
+            document.Open();
+
+            document.Add(new Paragraph("Informe de Incidencias"));
+
+            AddImageToPdf(document, path1);
+            AddImageToPdf(document, path3);
+
+            document.Close(); // Cerrar el documento PDF
+
+            // Abrir el PDF generado
+            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(pdfPath) { UseShellExecute = true });
+
+            MessageBox.Show("Informe generado exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void AddImageToPdf(Document document, string imagePath)
+        {
+            iTextSharp.text.Image image = iTextSharp.text.Image.GetInstance(imagePath);
+
+            image.ScaleToFit(document.PageSize.Width - 40, document.PageSize.Height - 40);
+            image.Alignment = Element.ALIGN_CENTER;
+
+            document.Add(image);
+        }
+
+
+
+
         public class IncidenciaView
         {
             public int id { get; set; }
@@ -538,7 +640,10 @@ namespace EuskalMoveAppForm
             public string cause { get; set; }
             public string cityTown { get; set; }
             public string incidenceName { get; set; }
+
+            public Incidencia OriginalIncidencia { get; set; }
         }
+     
     }
 }
 

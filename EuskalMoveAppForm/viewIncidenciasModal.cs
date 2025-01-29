@@ -167,6 +167,16 @@ namespace EuskalMoveAppForm
                 sourceId.BorderColor = Color.Gray;
             }
 
+            if (string.IsNullOrWhiteSpace(incidenceName.Text))
+            {
+                incidenceName.BorderColor = Color.IndianRed;
+                isValid = false;
+            }
+            else
+            {
+                incidenceName.BorderColor = Color.Gray;
+            }
+
             if (string.IsNullOrWhiteSpace(cityTown.Text))
             {
                 cityTown.BorderColor = Color.IndianRed;
@@ -185,6 +195,16 @@ namespace EuskalMoveAppForm
             else
             {
                 autonomousRegion.BorderColor = Color.Gray;
+            }
+
+            if (string.IsNullOrWhiteSpace(incidenceType.Text))
+            {
+                incidenceType.BorderColor = Color.IndianRed;
+                isValid = false;
+            }
+            else
+            {
+                incidenceType.BorderColor = Color.Gray;
             }
 
             if (string.IsNullOrWhiteSpace(province.Text))
