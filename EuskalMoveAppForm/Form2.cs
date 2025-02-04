@@ -16,6 +16,7 @@ using System.Web.UI.WebControls;
 using System.Windows.Forms;
 using ScottPlot;
 using System.Linq;
+using static EuskalMoveAppForm.Form2;
 
 namespace EuskalMoveAppForm
 {
@@ -28,6 +29,7 @@ namespace EuskalMoveAppForm
         private string userStatus;
         private bool userIsAdmin;
         private List<Incidencia> incidencias; // Almacenar la lista completa de incidencias
+        private List<Usuario> usuarios;
         int parentX, parentY;
         private const string apiPort = "localhost";
         public Form2(String email, String nombre, String status, bool admin)
@@ -50,18 +52,28 @@ namespace EuskalMoveAppForm
             guna2Button3.HoverState.FillColor = System.Drawing.Color.FromArgb(18, 16, 14);
 
             ConfigureDataGridView();
-            // Llamar al método para cargar las incidencias
+            ConfigureDataGridViewUsuarios();
+            // Llamar al método para cargar las incidencias y usuarios
             LoadIncidencias();
-
+            LoadUsuarios();
             // Asignar el evento SelectionChanged al DataGridView
             dataGridViewIncidencias.SelectionChanged += DataGridViewIncidencias_SelectionChanged;
-
+            dataGridViewUsuarios.SelectionChanged += DataGridViewUsuarios_SelectionChanged;
+            
             // Asignar el evento Click al panelIncidencias
             panelIncidencias.Click += PanelIncidencias_Click;
+            panelUsuarios.Click += PanelIncidencias_Click;
 
             // Asignar el evento Click al botón "ver"
             verBtn.Click += verBtn_Click;
             modificarBtn.Click += modificarBtn_Click;
+
+            this.FormClosing += Form2_FormClosing;
+        }
+
+        private void Form2_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Application.Exit();
         }
         private void CloseExistingToast()
         {
@@ -112,8 +124,9 @@ namespace EuskalMoveAppForm
         {
             // Deseleccionar la fila seleccionada en el DataGridView
             dataGridViewIncidencias.ClearSelection();
+            dataGridViewUsuarios.ClearSelection();
         }
-
+       
         private void guna2Button1_Click(object sender, EventArgs e)
         {
             SetButtonSelected(guna2Button1);
@@ -130,6 +143,20 @@ namespace EuskalMoveAppForm
             ResetButtonState(guna2Button1);
             ResetButtonState(guna2Button2);
 
+            //si es guna2Button1 panelIncidencias visible si es guna2Button2 panelUsuarios visible
+            if (button == guna2Button1)
+            {
+                panelIncidencias.Visible = true;
+                panelUsuarios.Visible = false;
+                LoadIncidencias();
+            }
+            else
+            {
+                panelIncidencias.Visible = false;
+                panelUsuarios.Visible = true;
+                LoadUsuarios();
+            }
+
             // Establecer el estado del botón seleccionado
             pnlNav.Height = button.Height;
             pnlNav.Top = button.Top;
@@ -142,6 +169,8 @@ namespace EuskalMoveAppForm
 
             // Guardar el botón seleccionado
             selectedButton = button;
+
+            
         }
 
         private void ResetButtonState(Guna.UI2.WinForms.Guna2Button button)
@@ -417,6 +446,7 @@ namespace EuskalMoveAppForm
                     dataGridViewIncidencias.Columns["cause"].Width = 160; // Ajusta este valor según tus necesidades
                     dataGridViewIncidencias.Columns["cityTown"].Width = 120; // Ajusta este valor según tus necesidades
                     dataGridViewIncidencias.Columns["incidenceName"].Width = 200;
+                    dataGridViewIncidencias.Columns["OriginalIncidencia"].Visible = false;
                     // Deseleccionar cualquier fila al inicio
                     dataGridViewIncidencias.ClearSelection();
                 }
@@ -428,6 +458,7 @@ namespace EuskalMoveAppForm
                 }
             }
         }
+
         public void ReloadDataGrid()
         {
             LoadIncidencias();
@@ -630,9 +661,119 @@ namespace EuskalMoveAppForm
             document.Add(image);
         }
 
+        private void ConfigureDataGridViewUsuarios()
+        {
+            dataGridViewUsuarios.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(18, 16, 14);
+            dataGridViewUsuarios.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            dataGridViewUsuarios.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 10, FontStyle.Bold);
+            dataGridViewUsuarios.ColumnHeadersDefaultCellStyle.SelectionBackColor = Color.FromArgb(18, 16, 14);
+            dataGridViewUsuarios.EnableHeadersVisualStyles = false;
+
+            dataGridViewUsuarios.GridColor = Color.FromArgb(18, 16, 14);
+            dataGridViewUsuarios.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+            dataGridViewUsuarios.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            dataGridViewUsuarios.RowHeadersVisible = false;
+
+            dataGridViewUsuarios.DefaultCellStyle.SelectionBackColor = Color.FromArgb(223, 154, 87);
+            dataGridViewUsuarios.DefaultCellStyle.SelectionForeColor = Color.Black;
+
+            dataGridViewUsuarios.BackgroundColor = Color.FromArgb(218, 227, 229);
+            dataGridViewUsuarios.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(238, 239, 249);
+            dataGridViewUsuarios.DefaultCellStyle.BackColor = Color.FromArgb(218, 227, 229);
+            dataGridViewUsuarios.DefaultCellStyle.ForeColor = Color.FromArgb(18, 16, 14);
+
+            dataGridViewUsuarios.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridViewUsuarios.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            dataGridViewUsuarios.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dataGridViewUsuarios.ReadOnly = true;
+            dataGridViewUsuarios.RowTemplate.Height = 40;
+            // Deseleccionar cualquier fila al inicio
+            dataGridViewUsuarios.ClearSelection();
+        }
+
+        private async void LoadUsuarios()
+        {
+            string apiUrl = "http://" + apiPort + ":8080/usuarios";
+            using (HttpClient client = new HttpClient())
+            {
+                HttpResponseMessage response;
+                try
+                {
+                    response = await client.GetAsync(apiUrl);
+                }
+                catch (HttpRequestException ex)
+                {
+                    CloseExistingToast();
+                    ToastForm toastForm = new ToastForm(this, "Error", "Error de conexión: " + ex.Message);
+                    toastForm.Show();
+                    return;
+                }
+                if (response.IsSuccessStatusCode)
+                {
+                    string responseBody = await response.Content.ReadAsStringAsync();
+                    usuarios = JsonConvert.DeserializeObject<List<Usuario>>(responseBody);
+
+                    // Configurar el DataGridView
+                    dataGridViewUsuarios.DataSource = null; // Limpiar el DataSource primero
+                    dataGridViewUsuarios.DataSource = usuarios;
+
+                    // Configurar las columnas
+                    if (dataGridViewUsuarios.Columns["contrasena"] != null)
+                    {
+                        dataGridViewUsuarios.Columns["contrasena"].Visible = false;
+                    }
+
+                    if (dataGridViewUsuarios.Columns["admin"] != null)
+                    {
+                        dataGridViewUsuarios.Columns["admin"].ValueType = typeof(bool);
+                        dataGridViewUsuarios.Columns["admin"].DefaultCellStyle.NullValue = false;
+                    }
+
+                    // Deseleccionar todas las filas
+                    dataGridViewUsuarios.ClearSelection();
+
+                    // Asegurarse de que no hay fila actual
+                    dataGridViewUsuarios.CurrentCell = null;
+                }
+                else
+                {
+                    CloseExistingToast();
+                    ToastForm toastForm = new ToastForm(this, "Error", "Error al cargar los usuarios.");
+                    toastForm.Show();
+                }
+            }
+        }
 
 
+        private void DataGridViewUsuarios_SelectionChanged(object sender, EventArgs e)
+        {
+            // Habilitar los botones si hay una fila seleccionada
+            if (dataGridViewUsuarios.SelectedRows.Count > 0)
+            {
+                verUsuarioBtn.Enabled = true;
+                modificarUsuarioBtn.Enabled = true;
+                eliminarUsuarioBtn.Enabled = true;
+                añadirUsuarioBtn.Enabled = false;
+            }
+            else
+            {
+                verUsuarioBtn.Enabled = false;
+                modificarUsuarioBtn.Enabled = false;
+                eliminarUsuarioBtn.Enabled = false;
+                añadirUsuarioBtn.Enabled = true;
+            }
+        }
 
+        public class Usuario
+        {
+            public int id { get; set; }
+            public string email { get; set; }
+            public string nombre { get; set; }
+            [JsonProperty("contrasena")]
+            public string contraseña { get; set; }
+            [JsonProperty("admin")]
+            public bool isAdmin { get; set; }
+        }
         public class IncidenciaView
         {
             public int id { get; set; }

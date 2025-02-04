@@ -46,11 +46,19 @@
             this.verBtn = new Guna.UI2.WinForms.Guna2GradientButton();
             this.dataGridViewIncidencias = new System.Windows.Forms.DataGridView();
             this.userControl21 = new EuskalMoveApp.UserControl2();
+            this.panelUsuarios = new System.Windows.Forms.Panel();
+            this.añadirUsuarioBtn = new Guna.UI2.WinForms.Guna2GradientButton();
+            this.eliminarUsuarioBtn = new Guna.UI2.WinForms.Guna2GradientButton();
+            this.modificarUsuarioBtn = new Guna.UI2.WinForms.Guna2GradientButton();
+            this.verUsuarioBtn = new Guna.UI2.WinForms.Guna2GradientButton();
+            this.dataGridViewUsuarios = new System.Windows.Forms.DataGridView();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.pnlNav.SuspendLayout();
             this.panelIncidencias.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewIncidencias)).BeginInit();
+            this.panelUsuarios.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewUsuarios)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -334,12 +342,129 @@
             this.userControl21.Size = new System.Drawing.Size(901, 36);
             this.userControl21.TabIndex = 0;
             // 
+            // panelUsuarios
+            // 
+            this.panelUsuarios.Controls.Add(this.añadirUsuarioBtn);
+            this.panelUsuarios.Controls.Add(this.eliminarUsuarioBtn);
+            this.panelUsuarios.Controls.Add(this.modificarUsuarioBtn);
+            this.panelUsuarios.Controls.Add(this.verUsuarioBtn);
+            this.panelUsuarios.Controls.Add(this.dataGridViewUsuarios);
+            this.panelUsuarios.Location = new System.Drawing.Point(198, 33);
+            this.panelUsuarios.Name = "panelUsuarios";
+            this.panelUsuarios.Size = new System.Drawing.Size(704, 493);
+            this.panelUsuarios.TabIndex = 3;
+            this.panelUsuarios.Visible = false;
+            // 
+            // añadirUsuarioBtn
+            // 
+            this.añadirUsuarioBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(218)))), ((int)(((byte)(227)))), ((int)(((byte)(229)))));
+            this.añadirUsuarioBtn.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(18)))), ((int)(((byte)(16)))), ((int)(((byte)(14)))));
+            this.añadirUsuarioBtn.BorderRadius = 12;
+            this.añadirUsuarioBtn.BorderThickness = 1;
+            this.añadirUsuarioBtn.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.añadirUsuarioBtn.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.añadirUsuarioBtn.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.añadirUsuarioBtn.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.añadirUsuarioBtn.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.añadirUsuarioBtn.Enabled = false;
+            this.añadirUsuarioBtn.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(154)))), ((int)(((byte)(87)))));
+            this.añadirUsuarioBtn.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(154)))), ((int)(((byte)(87)))));
+            this.añadirUsuarioBtn.Font = new System.Drawing.Font("Leelawadee UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.añadirUsuarioBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(18)))), ((int)(((byte)(16)))), ((int)(((byte)(14)))));
+            this.añadirUsuarioBtn.Location = new System.Drawing.Point(3, 385);
+            this.añadirUsuarioBtn.Name = "añadirUsuarioBtn";
+            this.añadirUsuarioBtn.PressedColor = System.Drawing.Color.Transparent;
+            this.añadirUsuarioBtn.Size = new System.Drawing.Size(50, 28);
+            this.añadirUsuarioBtn.TabIndex = 19;
+            this.añadirUsuarioBtn.Text = "➕";
+            // 
+            // eliminarUsuarioBtn
+            // 
+            this.eliminarUsuarioBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(218)))), ((int)(((byte)(227)))), ((int)(((byte)(229)))));
+            this.eliminarUsuarioBtn.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(18)))), ((int)(((byte)(16)))), ((int)(((byte)(14)))));
+            this.eliminarUsuarioBtn.BorderRadius = 12;
+            this.eliminarUsuarioBtn.BorderThickness = 1;
+            this.eliminarUsuarioBtn.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.eliminarUsuarioBtn.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.eliminarUsuarioBtn.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.eliminarUsuarioBtn.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.eliminarUsuarioBtn.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.eliminarUsuarioBtn.Enabled = false;
+            this.eliminarUsuarioBtn.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(154)))), ((int)(((byte)(87)))));
+            this.eliminarUsuarioBtn.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(154)))), ((int)(((byte)(87)))));
+            this.eliminarUsuarioBtn.Font = new System.Drawing.Font("Leelawadee UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.eliminarUsuarioBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(18)))), ((int)(((byte)(16)))), ((int)(((byte)(14)))));
+            this.eliminarUsuarioBtn.Location = new System.Drawing.Point(605, 385);
+            this.eliminarUsuarioBtn.Name = "eliminarUsuarioBtn";
+            this.eliminarUsuarioBtn.PressedColor = System.Drawing.Color.Transparent;
+            this.eliminarUsuarioBtn.Size = new System.Drawing.Size(86, 28);
+            this.eliminarUsuarioBtn.TabIndex = 18;
+            this.eliminarUsuarioBtn.Text = "ELIMINAR";
+            // 
+            // modificarUsuarioBtn
+            // 
+            this.modificarUsuarioBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(218)))), ((int)(((byte)(227)))), ((int)(((byte)(229)))));
+            this.modificarUsuarioBtn.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(18)))), ((int)(((byte)(16)))), ((int)(((byte)(14)))));
+            this.modificarUsuarioBtn.BorderRadius = 12;
+            this.modificarUsuarioBtn.BorderThickness = 1;
+            this.modificarUsuarioBtn.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.modificarUsuarioBtn.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.modificarUsuarioBtn.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.modificarUsuarioBtn.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.modificarUsuarioBtn.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.modificarUsuarioBtn.Enabled = false;
+            this.modificarUsuarioBtn.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(154)))), ((int)(((byte)(87)))));
+            this.modificarUsuarioBtn.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(154)))), ((int)(((byte)(87)))));
+            this.modificarUsuarioBtn.Font = new System.Drawing.Font("Leelawadee UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.modificarUsuarioBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(18)))), ((int)(((byte)(16)))), ((int)(((byte)(14)))));
+            this.modificarUsuarioBtn.Location = new System.Drawing.Point(503, 385);
+            this.modificarUsuarioBtn.Name = "modificarUsuarioBtn";
+            this.modificarUsuarioBtn.PressedColor = System.Drawing.Color.Transparent;
+            this.modificarUsuarioBtn.Size = new System.Drawing.Size(96, 28);
+            this.modificarUsuarioBtn.TabIndex = 17;
+            this.modificarUsuarioBtn.Text = "MODIFICAR";
+            // 
+            // verUsuarioBtn
+            // 
+            this.verUsuarioBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(218)))), ((int)(((byte)(227)))), ((int)(((byte)(229)))));
+            this.verUsuarioBtn.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(18)))), ((int)(((byte)(16)))), ((int)(((byte)(14)))));
+            this.verUsuarioBtn.BorderRadius = 12;
+            this.verUsuarioBtn.BorderThickness = 1;
+            this.verUsuarioBtn.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.verUsuarioBtn.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.verUsuarioBtn.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.verUsuarioBtn.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.verUsuarioBtn.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.verUsuarioBtn.Enabled = false;
+            this.verUsuarioBtn.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(154)))), ((int)(((byte)(87)))));
+            this.verUsuarioBtn.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(154)))), ((int)(((byte)(87)))));
+            this.verUsuarioBtn.Font = new System.Drawing.Font("Leelawadee UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.verUsuarioBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(18)))), ((int)(((byte)(16)))), ((int)(((byte)(14)))));
+            this.verUsuarioBtn.Location = new System.Drawing.Point(441, 385);
+            this.verUsuarioBtn.Name = "verUsuarioBtn";
+            this.verUsuarioBtn.PressedColor = System.Drawing.Color.Transparent;
+            this.verUsuarioBtn.Size = new System.Drawing.Size(56, 28);
+            this.verUsuarioBtn.TabIndex = 16;
+            this.verUsuarioBtn.Text = "VER";
+            // 
+            // dataGridViewUsuarios
+            // 
+            this.dataGridViewUsuarios.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dataGridViewUsuarios.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
+            this.dataGridViewUsuarios.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Sunken;
+            this.dataGridViewUsuarios.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.dataGridViewUsuarios.Location = new System.Drawing.Point(3, 17);
+            this.dataGridViewUsuarios.Name = "dataGridViewUsuarios";
+            this.dataGridViewUsuarios.Size = new System.Drawing.Size(688, 352);
+            this.dataGridViewUsuarios.TabIndex = 0;
+            // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(218)))), ((int)(((byte)(227)))), ((int)(((byte)(229)))));
             this.ClientSize = new System.Drawing.Size(901, 525);
+            this.Controls.Add(this.panelUsuarios);
             this.Controls.Add(this.panelIncidencias);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.userControl21);
@@ -353,6 +478,8 @@
             this.pnlNav.ResumeLayout(false);
             this.panelIncidencias.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewIncidencias)).EndInit();
+            this.panelUsuarios.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewUsuarios)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -376,5 +503,11 @@
         private Guna.UI2.WinForms.Guna2GradientButton verBtn;
         private Guna.UI2.WinForms.Guna2GradientButton crearBtn;
         private Guna.UI2.WinForms.Guna2GradientButton generarInformeBtn;
+        private System.Windows.Forms.Panel panelUsuarios;
+        private Guna.UI2.WinForms.Guna2GradientButton añadirUsuarioBtn;
+        private Guna.UI2.WinForms.Guna2GradientButton eliminarUsuarioBtn;
+        private Guna.UI2.WinForms.Guna2GradientButton modificarUsuarioBtn;
+        private Guna.UI2.WinForms.Guna2GradientButton verUsuarioBtn;
+        private System.Windows.Forms.DataGridView dataGridViewUsuarios;
     }
 }
