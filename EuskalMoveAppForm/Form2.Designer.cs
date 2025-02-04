@@ -377,6 +377,7 @@
             this.añadirUsuarioBtn.Size = new System.Drawing.Size(50, 28);
             this.añadirUsuarioBtn.TabIndex = 19;
             this.añadirUsuarioBtn.Text = "➕";
+            this.añadirUsuarioBtn.Click += new System.EventHandler(this.añadirUsuarioBtn_Click);
             // 
             // eliminarUsuarioBtn
             // 
@@ -423,6 +424,7 @@
             this.modificarUsuarioBtn.Size = new System.Drawing.Size(96, 28);
             this.modificarUsuarioBtn.TabIndex = 17;
             this.modificarUsuarioBtn.Text = "MODIFICAR";
+            this.modificarUsuarioBtn.Click += new System.EventHandler(this.modificarUsuarioBtn_Click);
             // 
             // verUsuarioBtn
             // 
@@ -446,6 +448,7 @@
             this.verUsuarioBtn.Size = new System.Drawing.Size(56, 28);
             this.verUsuarioBtn.TabIndex = 16;
             this.verUsuarioBtn.Text = "VER";
+            this.verUsuarioBtn.Click += new System.EventHandler(this.verUsuarioBtn_Click);
             // 
             // dataGridViewUsuarios
             // 

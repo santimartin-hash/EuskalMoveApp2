@@ -462,6 +462,7 @@ namespace EuskalMoveAppForm
         public void ReloadDataGrid()
         {
             LoadIncidencias();
+            LoadUsuarios();
         }
         public class Incidencia
         {
@@ -774,6 +775,136 @@ namespace EuskalMoveAppForm
             [JsonProperty("admin")]
             public bool isAdmin { get; set; }
         }
+
+        private void verUsuarioBtn_Click(object sender, EventArgs e)
+        {
+            if (dataGridViewUsuarios.SelectedRows.Count > 0)
+            {
+                // Obtener el usuario seleccionado
+                var selectedRow = dataGridViewUsuarios.SelectedRows[0];
+                var usuario = (Usuario)selectedRow.DataBoundItem;
+
+                if (usuario != null)
+                {
+                    Form modalbackground = new Form();
+                    //bordes redondeados al background
+                    modalbackground.Paint += (s, pe) =>
+                    {
+                        int borderRadius = 30;
+                        GraphicsPath path = new GraphicsPath();
+                        path.AddArc(0, 0, borderRadius, borderRadius, 180, 90);
+                        path.AddArc(modalbackground.Width - borderRadius, 0, borderRadius, borderRadius, 270, 90);
+                        path.AddArc(modalbackground.Width - borderRadius, modalbackground.Height - borderRadius, borderRadius, borderRadius, 0, 90);
+                        path.AddArc(0, modalbackground.Height - borderRadius, borderRadius, borderRadius, 90, 90);
+                        path.CloseAllFigures();
+                        modalbackground.Region = new Region(path);
+                    };
+
+                    using (usuarioModal modal = new usuarioModal(this, usuario, true)) // Pasar true para solo lectura
+                    {
+                        modalbackground.StartPosition = FormStartPosition.CenterScreen;
+                        modalbackground.FormBorderStyle = FormBorderStyle.None;
+                        modalbackground.Opacity = .70d;
+                        modalbackground.BackColor = Color.Black;
+                        modalbackground.Size = this.Size;
+                        modalbackground.Location = this.Location;
+                        modalbackground.ShowInTaskbar = false;
+                        modalbackground.Show();
+                        modal.Owner = modalbackground;
+
+                        parentX = this.Location.X;
+                        parentY = this.Location.Y;
+
+                        modal.ShowDialog();
+                        modalbackground.Dispose();
+                    }
+                }
+            }
+        }
+        private void modificarUsuarioBtn_Click(object sender, EventArgs e)
+        {
+            if (dataGridViewUsuarios.SelectedRows.Count > 0)
+            {
+                // Obtener el usuario seleccionado
+                var selectedRow = dataGridViewUsuarios.SelectedRows[0];
+                var usuario = (Usuario)selectedRow.DataBoundItem;
+
+                if (usuario != null)
+                {
+                    Form modalbackground = new Form();
+                    //bordes redondeados al background
+                    modalbackground.Paint += (s, pe) =>
+                    {
+                        int borderRadius = 30;
+                        GraphicsPath path = new GraphicsPath();
+                        path.AddArc(0, 0, borderRadius, borderRadius, 180, 90);
+                        path.AddArc(modalbackground.Width - borderRadius, 0, borderRadius, borderRadius, 270, 90);
+                        path.AddArc(modalbackground.Width - borderRadius, modalbackground.Height - borderRadius, borderRadius, borderRadius, 0, 90);
+                        path.AddArc(0, modalbackground.Height - borderRadius, borderRadius, borderRadius, 90, 90);
+                        path.CloseAllFigures();
+                        modalbackground.Region = new Region(path);
+                    };
+
+                    using (usuarioModal modal = new usuarioModal(this, usuario, false)) // Pasar false para editable
+                    {
+                        modalbackground.StartPosition = FormStartPosition.Manual;
+                        modalbackground.FormBorderStyle = FormBorderStyle.None;
+                        modalbackground.Opacity = .70d;
+                        modalbackground.BackColor = Color.Black;
+                        modalbackground.Size = this.Size;
+                        modalbackground.Location = this.Location;
+                        modalbackground.ShowInTaskbar = false;
+                        modalbackground.Show();
+                        modal.Owner = modalbackground;
+
+                        parentX = this.Location.X;
+                        parentY = this.Location.Y;
+
+                        modal.ShowDialog();
+                        modalbackground.Dispose();
+                    }
+                }
+            }
+        }
+
+        private void añadirUsuarioBtn_Click(object sender, EventArgs e)
+        {
+            Form modalbackground = new Form();
+            //bordes redondeados al background
+            modalbackground.Paint += (s, pe) =>
+            {
+                int borderRadius = 30;
+                GraphicsPath path = new GraphicsPath();
+                path.AddArc(0, 0, borderRadius, borderRadius, 180, 90);
+                path.AddArc(modalbackground.Width - borderRadius, 0, borderRadius, borderRadius, 270, 90);
+                path.AddArc(modalbackground.Width - borderRadius, modalbackground.Height - borderRadius, borderRadius, borderRadius, 0, 90);
+                path.AddArc(0, modalbackground.Height - borderRadius, borderRadius, borderRadius, 90, 90);
+                path.CloseAllFigures();
+                modalbackground.Region = new Region(path);
+            };
+
+            using (usuarioModal modal = new usuarioModal(this, new Usuario(), false, true)) // Pasar true para creación
+            {
+                modalbackground.StartPosition = FormStartPosition.Manual;
+                modalbackground.FormBorderStyle = FormBorderStyle.None;
+                modalbackground.Opacity = .70d;
+                modalbackground.BackColor = Color.Black;
+                modalbackground.Size = this.Size;
+                modalbackground.Location = this.Location;
+                modalbackground.ShowInTaskbar = false;
+                modalbackground.Show();
+                modal.Owner = modalbackground;
+
+                parentX = this.Location.X;
+                parentY = this.Location.Y;
+
+                modal.ShowDialog();
+                modalbackground.Dispose();
+            }
+        }
+
+
+
         public class IncidenciaView
         {
             public int id { get; set; }
