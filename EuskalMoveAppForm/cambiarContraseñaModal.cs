@@ -1,92 +1,82 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static EuskalMoveAppForm.Form2;
 
 namespace EuskalMoveAppForm
 {
-    public partial class deleteIncidenciasModal : Form
+    public partial class cambiarContraseñaModal : Form
     {
-        private Form parentForm;
-        private object entity;
-        private string entityType;
+        private Form2 parentForm;
+        private Usuario usuario;
         private Timer fadeInTimer;
-        private string loggedInUserEmail;
 
-        public deleteIncidenciasModal(Form parentForm, object entity, string entityType, string loggedInUserEmail)
+        public cambiarContraseñaModal(Form2 parentForm, Usuario usuario)
         {
             InitializeComponent();
             this.parentForm = parentForm;
-            this.entity = entity;
-            this.entityType = entityType;
-            this.loggedInUserEmail = loggedInUserEmail;
+            this.usuario = usuario;
 
             // Configurar el Timer para el efecto de aparición
             fadeInTimer = new Timer();
             fadeInTimer.Interval = 5; // Intervalo en milisegundos
             fadeInTimer.Tick += FadeInTimer_Tick;
 
-            // Actualizar los labels según el tipo de entidad
-            if (entityType == "Usuario")
+            // Manejar el evento FormClosing del formulario principal
+            parentForm.FormClosing += ParentForm_FormClosing;
+        }
+
+        private void ParentForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            // Cancelar el cierre del formulario principal si el modal está abierto
+            if (this.Visible)
             {
-                label1.Text = "Eliminar usuario";
-                label2.Text = "¿Estás seguro de eliminar el usuario?";
-            }
-            else if (entityType == "Incidencia")
-            {
-                label1.Text = "Eliminar incidencia";
-                label2.Text = "¿Estás seguro de eliminar la incidencia?";
+                e.Cancel = true;
+                this.BringToFront();
             }
         }
 
-        private async void deleteBtn_Click(object sender, EventArgs e)
+        private async void saveBtn_Click(object sender, EventArgs e)
         {
-            string apiUrl = "http://localhost:8080/";
+            string nuevaContraseña = contraseña.Text;
 
-            if (entityType == "Usuario")
+            if (string.IsNullOrEmpty(nuevaContraseña))
             {
-                var usuario = (Form2.Usuario)entity;
-                if (usuario.email == loggedInUserEmail)
-                {
-                    CloseExistingToast();
-                    ToastForm toastForm = new ToastForm(parentForm, "Error", "No puedes eliminar el usuario con el que has iniciado sesión.");
-                    toastForm.Show();
-                    return;
-                }
-                apiUrl += "usuarios/" + usuario.id;
+                MessageBox.Show("La nueva contraseña no puede estar vacía.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
-            else if (entityType == "Incidencia")
-            {
-                var incidencia = (Form2.Incidencia)entity;
-                apiUrl += "incidencias/" + incidencia.id;
-            }
+
+            usuario.contraseña = nuevaContraseña;
+
+            string apiUrl = "http://localhost:8080/usuarios/" + usuario.id;
 
             using (var client = new HttpClient())
             {
-                var response = await client.DeleteAsync(apiUrl);
+                var json = JsonConvert.SerializeObject(usuario);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                var response = await client.PutAsync(apiUrl, content);
+
                 if (response.IsSuccessStatusCode)
                 {
                     CloseExistingToast();
-                    ToastForm toastForm = new ToastForm(parentForm, "Success", $"{entityType} eliminada correctamente.");
+                    ToastForm toastForm = new ToastForm(parentForm, "Success", "Contraseña actualizada correctamente.");
                     toastForm.Show();
 
                     // Llamar al método para recargar el DataGridView en Form2
-                    if (parentForm is Form2 form2)
-                    {
-                        form2.ReloadDataGrid();
-                    }
+                    parentForm.ReloadDataGrid();
 
                     this.Close();
                 }
                 else
                 {
                     CloseExistingToast();
-                    ToastForm toastForm = new ToastForm(parentForm, "Error", $"Error al eliminar la {entityType.ToLower()}.");
+                    ToastForm toastForm = new ToastForm(parentForm, "Error", "Error al actualizar la contraseña.");
                     toastForm.Show();
-                    this.Close();
                 }
             }
         }
@@ -125,7 +115,7 @@ namespace EuskalMoveAppForm
             this.Region = new Region(path);
         }
 
-        private void deleteIncidenciasModal_Load(object sender, EventArgs e)
+        private void cambiarContraseñaModal_Load(object sender, EventArgs e)
         {
             this.Opacity = 0;
             fadeInTimer.Start();

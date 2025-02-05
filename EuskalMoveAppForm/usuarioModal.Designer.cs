@@ -258,7 +258,7 @@
             this.contraseña.PlaceholderForeColor = System.Drawing.Color.Gray;
             this.contraseña.PlaceholderText = "";
             this.contraseña.SelectedText = "";
-            this.contraseña.Size = new System.Drawing.Size(328, 25);
+            this.contraseña.Size = new System.Drawing.Size(322, 25);
             this.contraseña.TabIndex = 53;
             this.contraseña.Visible = false;
             // 

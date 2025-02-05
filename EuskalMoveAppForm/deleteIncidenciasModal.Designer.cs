@@ -112,6 +112,7 @@
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "deleteIncidenciasModal";
+            this.ShowInTaskbar = false;
             this.Text = "deleteIncidenciasModal";
             this.Load += new System.EventHandler(this.deleteIncidenciasModal_Load);
             this.ResumeLayout(false);

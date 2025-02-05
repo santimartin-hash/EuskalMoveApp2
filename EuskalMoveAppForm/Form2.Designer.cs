@@ -52,6 +52,7 @@
             this.modificarUsuarioBtn = new Guna.UI2.WinForms.Guna2GradientButton();
             this.verUsuarioBtn = new Guna.UI2.WinForms.Guna2GradientButton();
             this.dataGridViewUsuarios = new System.Windows.Forms.DataGridView();
+            this.cambiarContraseñaBtn = new Guna.UI2.WinForms.Guna2GradientButton();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.pnlNav.SuspendLayout();
@@ -344,6 +345,7 @@
             // 
             // panelUsuarios
             // 
+            this.panelUsuarios.Controls.Add(this.cambiarContraseñaBtn);
             this.panelUsuarios.Controls.Add(this.añadirUsuarioBtn);
             this.panelUsuarios.Controls.Add(this.eliminarUsuarioBtn);
             this.panelUsuarios.Controls.Add(this.modificarUsuarioBtn);
@@ -401,6 +403,7 @@
             this.eliminarUsuarioBtn.Size = new System.Drawing.Size(86, 28);
             this.eliminarUsuarioBtn.TabIndex = 18;
             this.eliminarUsuarioBtn.Text = "ELIMINAR";
+            this.eliminarUsuarioBtn.Click += new System.EventHandler(this.eliminarUsuarioBtn_Click);
             // 
             // modificarUsuarioBtn
             // 
@@ -461,6 +464,30 @@
             this.dataGridViewUsuarios.Size = new System.Drawing.Size(688, 352);
             this.dataGridViewUsuarios.TabIndex = 0;
             // 
+            // cambiarContraseñaBtn
+            // 
+            this.cambiarContraseñaBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(218)))), ((int)(((byte)(227)))), ((int)(((byte)(229)))));
+            this.cambiarContraseñaBtn.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(18)))), ((int)(((byte)(16)))), ((int)(((byte)(14)))));
+            this.cambiarContraseñaBtn.BorderRadius = 12;
+            this.cambiarContraseñaBtn.BorderThickness = 1;
+            this.cambiarContraseñaBtn.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.cambiarContraseñaBtn.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.cambiarContraseñaBtn.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.cambiarContraseñaBtn.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.cambiarContraseñaBtn.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.cambiarContraseñaBtn.Enabled = false;
+            this.cambiarContraseñaBtn.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(154)))), ((int)(((byte)(87)))));
+            this.cambiarContraseñaBtn.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(154)))), ((int)(((byte)(87)))));
+            this.cambiarContraseñaBtn.Font = new System.Drawing.Font("Leelawadee UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cambiarContraseñaBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(18)))), ((int)(((byte)(16)))), ((int)(((byte)(14)))));
+            this.cambiarContraseñaBtn.Location = new System.Drawing.Point(59, 385);
+            this.cambiarContraseñaBtn.Name = "cambiarContraseñaBtn";
+            this.cambiarContraseñaBtn.PressedColor = System.Drawing.Color.Transparent;
+            this.cambiarContraseñaBtn.Size = new System.Drawing.Size(168, 28);
+            this.cambiarContraseñaBtn.TabIndex = 20;
+            this.cambiarContraseñaBtn.Text = "CAMBIAR CONTRASEÑA";
+            this.cambiarContraseñaBtn.Click += new System.EventHandler(this.cambiarContraseñaBtn_Click);
+            // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -512,5 +539,6 @@
         private Guna.UI2.WinForms.Guna2GradientButton modificarUsuarioBtn;
         private Guna.UI2.WinForms.Guna2GradientButton verUsuarioBtn;
         private System.Windows.Forms.DataGridView dataGridViewUsuarios;
+        private Guna.UI2.WinForms.Guna2GradientButton cambiarContraseñaBtn;
     }
 }

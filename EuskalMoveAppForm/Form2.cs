@@ -69,6 +69,7 @@ namespace EuskalMoveAppForm
             modificarBtn.Click += modificarBtn_Click;
 
             this.FormClosing += Form2_FormClosing;
+          
         }
 
         private void Form2_FormClosing(object sender, FormClosingEventArgs e)
@@ -524,17 +525,13 @@ namespace EuskalMoveAppForm
         {
             if (dataGridViewIncidencias.SelectedRows.Count > 0)
             {
-                // Obtener la incidencia seleccionada
                 var selectedRow = dataGridViewIncidencias.SelectedRows[0];
                 var incidenciaView = (IncidenciaView)selectedRow.DataBoundItem;
-
-                // Buscar la incidencia completa en la lista original
                 var incidencia = incidencias.FirstOrDefault(i => i.id == incidenciaView.id);
 
                 if (incidencia != null)
                 {
                     Form modalbackground = new Form();
-                    //bordes redondeados al background
                     modalbackground.Paint += (s, pe) =>
                     {
                         int borderRadius = 30;
@@ -547,7 +544,7 @@ namespace EuskalMoveAppForm
                         modalbackground.Region = new Region(path);
                     };
 
-                    using (deleteIncidenciasModal modal = new deleteIncidenciasModal(this, incidencia.id)) // Pasar el ID de la incidencia
+                    using (deleteIncidenciasModal modal = new deleteIncidenciasModal(this, incidencia, "Incidencia", userEmail))
                     {
                         modalbackground.StartPosition = FormStartPosition.Manual;
                         modalbackground.FormBorderStyle = FormBorderStyle.None;
@@ -688,6 +685,7 @@ namespace EuskalMoveAppForm
             dataGridViewUsuarios.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridViewUsuarios.ReadOnly = true;
             dataGridViewUsuarios.RowTemplate.Height = 40;
+        
             // Deseleccionar cualquier fila al inicio
             dataGridViewUsuarios.ClearSelection();
         }
@@ -719,10 +717,11 @@ namespace EuskalMoveAppForm
                     dataGridViewUsuarios.DataSource = usuarios;
 
                     // Configurar las columnas
-                    if (dataGridViewUsuarios.Columns["contrasena"] != null)
+                    if (dataGridViewUsuarios.Columns["contraseña"] != null)
                     {
-                        dataGridViewUsuarios.Columns["contrasena"].Visible = false;
+                        dataGridViewUsuarios.Columns["contraseña"].Visible = false;
                     }
+                   
 
                     if (dataGridViewUsuarios.Columns["admin"] != null)
                     {
@@ -730,11 +729,14 @@ namespace EuskalMoveAppForm
                         dataGridViewUsuarios.Columns["admin"].DefaultCellStyle.NullValue = false;
                     }
 
+
                     // Deseleccionar todas las filas
                     dataGridViewUsuarios.ClearSelection();
 
                     // Asegurarse de que no hay fila actual
                     dataGridViewUsuarios.CurrentCell = null;
+
+                 
                 }
                 else
                 {
@@ -745,6 +747,7 @@ namespace EuskalMoveAppForm
             }
         }
 
+       
 
         private void DataGridViewUsuarios_SelectionChanged(object sender, EventArgs e)
         {
@@ -755,6 +758,7 @@ namespace EuskalMoveAppForm
                 modificarUsuarioBtn.Enabled = true;
                 eliminarUsuarioBtn.Enabled = true;
                 añadirUsuarioBtn.Enabled = false;
+                cambiarContraseñaBtn.Enabled = true;
             }
             else
             {
@@ -762,6 +766,7 @@ namespace EuskalMoveAppForm
                 modificarUsuarioBtn.Enabled = false;
                 eliminarUsuarioBtn.Enabled = false;
                 añadirUsuarioBtn.Enabled = true;
+                cambiarContraseñaBtn.Enabled = false;
             }
         }
 
@@ -902,7 +907,93 @@ namespace EuskalMoveAppForm
                 modalbackground.Dispose();
             }
         }
+        private void eliminarUsuarioBtn_Click(object sender, EventArgs e)
+        {
+            if (dataGridViewUsuarios.SelectedRows.Count > 0)
+            {
+                var selectedRow = dataGridViewUsuarios.SelectedRows[0];
+                var usuario = (Usuario)selectedRow.DataBoundItem;
 
+                if (usuario != null)
+                {
+                    Form modalbackground = new Form();
+                    modalbackground.Paint += (s, pe) =>
+                    {
+                        int borderRadius = 30;
+                        GraphicsPath path = new GraphicsPath();
+                        path.AddArc(0, 0, borderRadius, borderRadius, 180, 90);
+                        path.AddArc(modalbackground.Width - borderRadius, 0, borderRadius, borderRadius, 270, 90);
+                        path.AddArc(modalbackground.Width - borderRadius, modalbackground.Height - borderRadius, borderRadius, borderRadius, 0, 90);
+                        path.AddArc(0, modalbackground.Height - borderRadius, borderRadius, borderRadius, 90, 90);
+                        path.CloseAllFigures();
+                        modalbackground.Region = new Region(path);
+                    };
+
+                    using (deleteIncidenciasModal modal = new deleteIncidenciasModal(this, usuario, "Usuario", userEmail))
+                    {
+                        modalbackground.StartPosition = FormStartPosition.Manual;
+                        modalbackground.FormBorderStyle = FormBorderStyle.None;
+                        modalbackground.Opacity = .70d;
+                        modalbackground.BackColor = Color.Black;
+                        modalbackground.Size = this.Size;
+                        modalbackground.Location = this.Location;
+                        modalbackground.ShowInTaskbar = false;
+                        modalbackground.Show();
+                        modal.Owner = modalbackground;
+
+                        parentX = this.Location.X;
+                        parentY = this.Location.Y;
+
+                        modal.ShowDialog();
+                        modalbackground.Dispose();
+                    }
+                }
+            }
+        }
+        private void cambiarContraseñaBtn_Click(object sender, EventArgs e)
+        {
+            if (dataGridViewUsuarios.SelectedRows.Count > 0)
+            {
+                var selectedRow = dataGridViewUsuarios.SelectedRows[0];
+                var usuario = (Usuario)selectedRow.DataBoundItem;
+
+                if (usuario != null)
+                {
+                    Form modalbackground = new Form();
+                    //bordes redondeados al background
+                    modalbackground.Paint += (s, pe) =>
+                    {
+                        int borderRadius = 30;
+                        GraphicsPath path = new GraphicsPath();
+                        path.AddArc(0, 0, borderRadius, borderRadius, 180, 90);
+                        path.AddArc(modalbackground.Width - borderRadius, 0, borderRadius, borderRadius, 270, 90);
+                        path.AddArc(modalbackground.Width - borderRadius, modalbackground.Height - borderRadius, borderRadius, borderRadius, 0, 90);
+                        path.AddArc(0, modalbackground.Height - borderRadius, borderRadius, borderRadius, 90, 90);
+                        path.CloseAllFigures();
+                        modalbackground.Region = new Region(path);
+                    };
+
+                    using (cambiarContraseñaModal modal = new cambiarContraseñaModal(this, usuario))
+                    {
+                        modalbackground.StartPosition = FormStartPosition.Manual;
+                        modalbackground.FormBorderStyle = FormBorderStyle.None;
+                        modalbackground.Opacity = .70d;
+                        modalbackground.BackColor = Color.Black;
+                        modalbackground.Size = this.Size;
+                        modalbackground.Location = this.Location;
+                        modalbackground.ShowInTaskbar = false;
+                        modalbackground.Show();
+                        modal.Owner = modalbackground;
+
+                        parentX = this.Location.X;
+                        parentY = this.Location.Y;
+
+                        modal.ShowDialog();
+                        modalbackground.Dispose();
+                    }
+                }
+            }
+        }
 
 
         public class IncidenciaView

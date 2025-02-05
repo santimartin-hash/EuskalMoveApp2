@@ -39,6 +39,8 @@ namespace EuskalMoveAppForm
             else
             {
                 modificarBtn.Text = "MODIFICAR";
+      
+                contraseña.Text = usuario.contraseña;
             }
 
             // Configurar el Timer para el efecto de aparición
@@ -140,7 +142,16 @@ namespace EuskalMoveAppForm
                 nombre.BorderColor = Color.Gray;
             }
 
-          
+            if (string.IsNullOrWhiteSpace(contraseña.Text))
+            {
+                contraseña.BorderColor = Color.IndianRed;
+                isValid = false;
+            }
+            else
+            {
+                contraseña.BorderColor = Color.Gray;
+            }
+
 
             return isValid;
         }
