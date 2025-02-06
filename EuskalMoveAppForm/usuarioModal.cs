@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using System;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using System.Net.Mail;
 
 namespace EuskalMoveAppForm
 {
@@ -122,9 +123,10 @@ namespace EuskalMoveAppForm
         {
             bool isValid = true;
 
-            if (string.IsNullOrWhiteSpace(email.Text))
+            if (!IsValidEmail(email.Text))
             {
                 email.BorderColor = Color.IndianRed;
+
                 isValid = false;
             }
             else
@@ -155,7 +157,21 @@ namespace EuskalMoveAppForm
 
             return isValid;
         }
+        private bool IsValidEmail(string email)
+        {
+            if (string.IsNullOrWhiteSpace(email))
+                return false;
 
+            try
+            {
+                var addr = new System.Net.Mail.MailAddress(email);
+                return addr.Address == email;
+            }
+            catch
+            {
+                return false;
+            }
+        }
         private async void modificarBtn_Click(object sender, EventArgs e)
         {
             if (!ValidateFields())
@@ -199,6 +215,12 @@ namespace EuskalMoveAppForm
 
                 if (response.IsSuccessStatusCode)
                 {
+
+                    if (isCreating)
+                    {
+                        SendEmail(email.Text, nombre.Text);
+                    }
+
                     currentToastForm = new ToastForm(parentForm, "Success", isCreating ? "Usuario creado correctamente." : "Usuario modificado correctamente.");
                     currentToastForm.Show();
 
@@ -215,6 +237,173 @@ namespace EuskalMoveAppForm
                     currentToastForm = new ToastForm(parentForm, "Error", isCreating ? "Error al crear el usuario." : "Error al modificar el usuario.");
                     currentToastForm.Show();
                 }
+            }
+        }
+
+
+        private void SendEmail(string toEmail, string userName)
+        {
+            try
+            {
+                var fromAddress = new MailAddress("euskalmove2dam3@gmail.com", "EuskalMove");
+                var toAddress = new MailAddress(toEmail, userName);
+                const string fromPassword = "vths lmoi ozfu gcdr";
+                const string subject = "Bienvenido a EuskalMove";
+
+                // HTML del correo electrónico
+                string body = @"
+<!DOCTYPE html>
+<html lang=""es"">
+<head>
+    <meta charset=""UTF-8"">
+    <meta name=""viewport"" content=""width=device-width, initial-scale=1.0"">
+    <meta http-equiv=""X-UA-Compatible"" content=""IE=edge"">
+    <title>Bienvenido a EuskalMove</title>
+    <style>
+        body {
+            font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #DAE3E5;
+        }
+        
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #ffffff;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .header {
+            background-color: #12100E;
+            padding: 10px 5px;
+            text-align: center;
+        }
+        
+        .logo {
+            max-width: 150px;
+            height: auto;
+        }
+        
+        .content {
+            padding: 40px;
+            color: #333333;
+        }
+        
+        h1 {
+            color: #12100E;
+            margin-bottom: 20px;
+            font-size: 28px;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+        
+        .highlight {
+            color: #D69A57;
+            font-weight: bold;
+        }
+        
+        ul {
+            padding-left: 20px;
+            margin-bottom: 20px;
+        }
+        
+        li {
+            margin-bottom: 12px;
+            position: relative;
+            padding-left: 15px;
+        }
+        
+        li::before {
+            content: ""•"";
+            color: #D69A57;
+            font-weight: bold;
+            position: absolute;
+            left: -5px;
+        }
+        
+        .signature {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #DAE3E5;
+            font-style: italic;
+        }
+        
+        .footer {
+            background-color: #12100E;
+            color: #ffffff;
+            text-align: center;
+            padding: 15px;
+            font-size: 12px;
+        }
+        
+        @media only screen and (max-width: 600px) {
+            .container {
+                margin: 0;
+                border-radius: 0;
+            }
+            
+            .content {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class=""container"">
+        <div class=""header"">
+            <img src=""https://i.ibb.co/FrYQCzR/Captura-modified-1.png"" width=""50""  height=""50"" alt=""EuskalMove Logo"" class=""logo"">
+        </div>
+        <div class=""content"">
+            <h1>Bienvenido a <span class=""highlight"">EuskalMove</span></h1>
+            <p>Estimado " + userName + @",</p>
+            <p>Nos complace darle la bienvenida a EuskalMove, su nueva plataforma para explorar y disfrutar del País Vasco como nunca antes.</p>
+            <p>Con su nueva cuenta, podrá acceder a una serie de funciones exclusivas:</p>
+            <ul>
+                <li>Descubrir los rincones más fascinantes del País Vasco</li>
+                <li>Consultar cámaras de tráfico en tiempo real</li>
+                <li>Ver incidencias actualizadas del País Vasco</li>
+            </ul>
+            <p>Nuestro equipo está comprometido a proporcionarle la mejor experiencia posible. Si tiene alguna pregunta o necesita asistencia, no dude en contactar con nuestro servicio de atención al cliente.</p>
+            <p>Le invitamos a explorar todas las posibilidades que EuskalMove tiene para ofrecerle. ¡Esperamos que disfrute de su viaje con nosotros!</p>
+            <div class=""signature"">
+                <p>Atentamente,<br>El equipo de EuskalMove</p>
+            </div>
+        </div>
+        <div class=""footer"">
+            <p>&copy; 2025 EuskalMove. Todos los derechos reservados.</p>
+        </div>
+    </div>
+</body>
+</html>
+";
+
+                var smtp = new SmtpClient
+                {
+                    Host = "smtp.gmail.com",
+                    Port = 587,
+                    EnableSsl = true,
+                    DeliveryMethod = SmtpDeliveryMethod.Network,
+                    UseDefaultCredentials = false,
+                    Credentials = new System.Net.NetworkCredential(fromAddress.Address, fromPassword)
+                };
+
+                using (var message = new MailMessage(fromAddress, toAddress)
+                {
+                    Subject = subject,
+                    Body = body,
+                    IsBodyHtml = true
+                })
+                {
+                    smtp.Send(message);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al enviar el correo electrónico: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

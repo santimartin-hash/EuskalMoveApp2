@@ -12,8 +12,8 @@ namespace EuskalMoveAppForm
         private int targetY;
         private int recorteOffset = 2; // Ajusta este valor según sea necesario
         private Panel leftLinePanel;
-
-        public ToastForm(Form form2, string type, string description)
+        private int customWidth;
+        public ToastForm(Form form2, string type, string description, int width = 0)
         {
             InitializeComponent();
             this.form2 = form2;
@@ -51,6 +51,17 @@ namespace EuskalMoveAppForm
             Tipo.Text = type;
             Descripcion.Text = description;
             ConfigureToastAppearance(type);
+
+            // Establecer el ancho personalizado si se proporciona
+            if (width > 0)
+            {
+                this.customWidth = width;
+                this.Width = width;
+            }
+            else
+            {
+                this.customWidth = this.Width; // Mantener el ancho predeterminado
+            }
         }
 
         private void ConfigureToastAppearance(string type)

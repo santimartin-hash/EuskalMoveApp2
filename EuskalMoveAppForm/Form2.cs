@@ -31,7 +31,7 @@ namespace EuskalMoveAppForm
         private List<Incidencia> incidencias; // Almacenar la lista completa de incidencias
         private List<Usuario> usuarios;
         int parentX, parentY;
-        private const string apiPort = "localhost";
+        private const string apiPort = "10.10.13.169";
         public Form2(String email, String nombre, String status, bool admin)
         {
             InitializeComponent();
