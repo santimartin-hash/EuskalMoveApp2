@@ -47,12 +47,12 @@
             this.dataGridViewIncidencias = new System.Windows.Forms.DataGridView();
             this.userControl21 = new EuskalMoveApp.UserControl2();
             this.panelUsuarios = new System.Windows.Forms.Panel();
+            this.cambiarContraseñaBtn = new Guna.UI2.WinForms.Guna2GradientButton();
             this.añadirUsuarioBtn = new Guna.UI2.WinForms.Guna2GradientButton();
             this.eliminarUsuarioBtn = new Guna.UI2.WinForms.Guna2GradientButton();
             this.modificarUsuarioBtn = new Guna.UI2.WinForms.Guna2GradientButton();
             this.verUsuarioBtn = new Guna.UI2.WinForms.Guna2GradientButton();
             this.dataGridViewUsuarios = new System.Windows.Forms.DataGridView();
-            this.cambiarContraseñaBtn = new Guna.UI2.WinForms.Guna2GradientButton();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.pnlNav.SuspendLayout();
@@ -331,6 +331,7 @@
             this.dataGridViewIncidencias.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Sunken;
             this.dataGridViewIncidencias.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dataGridViewIncidencias.Location = new System.Drawing.Point(3, 17);
+            this.dataGridViewIncidencias.MultiSelect = false;
             this.dataGridViewIncidencias.Name = "dataGridViewIncidencias";
             this.dataGridViewIncidencias.Size = new System.Drawing.Size(688, 352);
             this.dataGridViewIncidencias.TabIndex = 0;
@@ -356,6 +357,30 @@
             this.panelUsuarios.Size = new System.Drawing.Size(704, 493);
             this.panelUsuarios.TabIndex = 3;
             this.panelUsuarios.Visible = false;
+            // 
+            // cambiarContraseñaBtn
+            // 
+            this.cambiarContraseñaBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(218)))), ((int)(((byte)(227)))), ((int)(((byte)(229)))));
+            this.cambiarContraseñaBtn.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(18)))), ((int)(((byte)(16)))), ((int)(((byte)(14)))));
+            this.cambiarContraseñaBtn.BorderRadius = 12;
+            this.cambiarContraseñaBtn.BorderThickness = 1;
+            this.cambiarContraseñaBtn.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.cambiarContraseñaBtn.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.cambiarContraseñaBtn.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.cambiarContraseñaBtn.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.cambiarContraseñaBtn.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.cambiarContraseñaBtn.Enabled = false;
+            this.cambiarContraseñaBtn.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(154)))), ((int)(((byte)(87)))));
+            this.cambiarContraseñaBtn.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(154)))), ((int)(((byte)(87)))));
+            this.cambiarContraseñaBtn.Font = new System.Drawing.Font("Leelawadee UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cambiarContraseñaBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(18)))), ((int)(((byte)(16)))), ((int)(((byte)(14)))));
+            this.cambiarContraseñaBtn.Location = new System.Drawing.Point(59, 385);
+            this.cambiarContraseñaBtn.Name = "cambiarContraseñaBtn";
+            this.cambiarContraseñaBtn.PressedColor = System.Drawing.Color.Transparent;
+            this.cambiarContraseñaBtn.Size = new System.Drawing.Size(168, 28);
+            this.cambiarContraseñaBtn.TabIndex = 20;
+            this.cambiarContraseñaBtn.Text = "CAMBIAR CONTRASEÑA";
+            this.cambiarContraseñaBtn.Click += new System.EventHandler(this.cambiarContraseñaBtn_Click);
             // 
             // añadirUsuarioBtn
             // 
@@ -460,33 +485,10 @@
             this.dataGridViewUsuarios.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Sunken;
             this.dataGridViewUsuarios.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dataGridViewUsuarios.Location = new System.Drawing.Point(3, 17);
+            this.dataGridViewUsuarios.MultiSelect = false;
             this.dataGridViewUsuarios.Name = "dataGridViewUsuarios";
             this.dataGridViewUsuarios.Size = new System.Drawing.Size(688, 352);
             this.dataGridViewUsuarios.TabIndex = 0;
-            // 
-            // cambiarContraseñaBtn
-            // 
-            this.cambiarContraseñaBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(218)))), ((int)(((byte)(227)))), ((int)(((byte)(229)))));
-            this.cambiarContraseñaBtn.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(18)))), ((int)(((byte)(16)))), ((int)(((byte)(14)))));
-            this.cambiarContraseñaBtn.BorderRadius = 12;
-            this.cambiarContraseñaBtn.BorderThickness = 1;
-            this.cambiarContraseñaBtn.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.cambiarContraseñaBtn.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.cambiarContraseñaBtn.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.cambiarContraseñaBtn.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.cambiarContraseñaBtn.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.cambiarContraseñaBtn.Enabled = false;
-            this.cambiarContraseñaBtn.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(154)))), ((int)(((byte)(87)))));
-            this.cambiarContraseñaBtn.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(154)))), ((int)(((byte)(87)))));
-            this.cambiarContraseñaBtn.Font = new System.Drawing.Font("Leelawadee UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cambiarContraseñaBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(18)))), ((int)(((byte)(16)))), ((int)(((byte)(14)))));
-            this.cambiarContraseñaBtn.Location = new System.Drawing.Point(59, 385);
-            this.cambiarContraseñaBtn.Name = "cambiarContraseñaBtn";
-            this.cambiarContraseñaBtn.PressedColor = System.Drawing.Color.Transparent;
-            this.cambiarContraseñaBtn.Size = new System.Drawing.Size(168, 28);
-            this.cambiarContraseñaBtn.TabIndex = 20;
-            this.cambiarContraseñaBtn.Text = "CAMBIAR CONTRASEÑA";
-            this.cambiarContraseñaBtn.Click += new System.EventHandler(this.cambiarContraseñaBtn_Click);
             // 
             // Form2
             // 
@@ -494,8 +496,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(218)))), ((int)(((byte)(227)))), ((int)(((byte)(229)))));
             this.ClientSize = new System.Drawing.Size(901, 525);
-            this.Controls.Add(this.panelUsuarios);
             this.Controls.Add(this.panelIncidencias);
+            this.Controls.Add(this.panelUsuarios);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.userControl21);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
