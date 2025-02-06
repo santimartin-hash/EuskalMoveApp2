@@ -22,7 +22,7 @@ namespace EuskalMoveAppForm
         private bool userIsAdmin;
         private ToastForm currentToast; // Variable para almacenar la referencia al ToastForm
         //constante para api 
-        private const string apiPort = "10.10.13.169";
+        private const string apiPort = "10.10.13.248";
 
 
         public Form1()
